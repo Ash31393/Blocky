@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blocky Project Living Brief</title>
+  <style>
+    body { font-family: Segoe UI, Arial, sans-serif; margin: 40px; line-height: 1.45; color: #111; }
+    h1, h2, h3 { color: #0b3a67; }
+    h1 { border-bottom: 2px solid #e5e7eb; padding-bottom: 8px; }
+    ul, ol { margin-top: 6px; }
+    .meta { color: #444; font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+  <h1>Blocky Project Living Brief</h1>
+  <p class="meta">Snapshot date: 2026-06-09</p>
+
+  <h2>What This Project Is</h2>
+  <p>Blocky is a build-to-learn blockchain engineering lab. You are learning by shipping real software, not only reading theory.</p>
+  <p>The project combines two tracks:</p>
+  <ul>
+    <li>Blockchain engineering track: protocol simulation, Solidity contracts, DeFi/NFT/marketplace modules, and multi-chain deployment.</li>
+    <li>Multi-learning software track: learner progress data model, analytics views, and BI dashboards.</li>
+  </ul>
+
+  <h2>Original Goal</h2>
+  <p>Build a professional portfolio-grade system where you can explain blockchain internals, write safer smart contracts with tests, build product-facing learning flows, and measure outcomes with data and dashboards.</p>
+
+  <h2>Current Status (As Of 2026-06-09)</h2>
+  <h3>Repository and Workflow</h3>
+  <ul>
+    <li>Repository structure is created.</li>
+    <li>Docs-only execution model is active: you run commands and tools; Copilot maintains documentation and guidance.</li>
+    <li>Baseline CI workflow file exists at .github/workflows/ci.yml.</li>
+  </ul>
+
+  <h3>Data and Analytics Progress</h3>
+  <ul>
+    <li>Local SQLite database exists at data/sqlite/learning.db.</li>
+    <li>Core schema exists: users, modules, lessons, checkpoints, submissions, events.</li>
+    <li>Seed data confirmed: users 1, modules 2, lessons 4, checkpoints 8, submissions 0, events 0.</li>
+    <li>BI views created: v_completion_funnel, v_error_hotspots.</li>
+  </ul>
+
+  <h3>Tableau Progress</h3>
+  <ul>
+    <li>Tableau is connected to learning.db through ODBC (SQLite3 Datasource).</li>
+    <li>v_completion_funnel has been dragged into the data model and rows are visible.</li>
+    <li>Next charting work is to build sheet visuals from the two views.</li>
+  </ul>
+
+  <h2>Tools In Use</h2>
+  <h3>Core Dev</h3>
+  <ul>
+    <li>Node.js and npm</li>
+    <li>Git</li>
+    <li>Python (via py launcher)</li>
+    <li>PowerShell</li>
+  </ul>
+
+  <h3>Blockchain</h3>
+  <ul>
+    <li>Foundry stack target: forge, cast, anvil</li>
+  </ul>
+
+  <h3>Data and BI</h3>
+  <ul>
+    <li>SQLite database file at data/sqlite/learning.db</li>
+    <li>DB Browser for SQLite</li>
+    <li>Tableau Desktop via ODBC SQLite3 driver</li>
+  </ul>
+
+  <h2>What To Do Next</h2>
+  <ol>
+    <li>Tableau chart 1 (completion by module): source v_completion_funnel, X Module Name, Y Lesson Count or Submission Count, Color Topic.</li>
+    <li>Tableau chart 2 (fail hotspots): source v_error_hotspots, X check_type, Y fail_count.</li>
+    <li>Insert sample rows into submissions, then re-query both views and validate hotspot signal.</li>
+    <li>Capture screenshots and top 3 insights in runbooks.</li>
+  </ol>
+
+  <h2>Working Agreement</h2>
+  <p>This is the living master brief. Update the markdown source each session and export a new PDF snapshot after meaningful updates.</p>
+
+  <h2>Session Checkpoint Log</h2>
+  <h3>2026-06-09</h3>
+  <ul>
+    <li>SQLite schema and seed checkpoint confirmed.</li>
+    <li>ODBC connection to Tableau completed.</li>
+    <li>v_completion_funnel loaded in Tableau data model.</li>
+    <li>Next action: complete two Tableau visuals and capture insights.</li>
+  </ul>
+</body>
+</html>
