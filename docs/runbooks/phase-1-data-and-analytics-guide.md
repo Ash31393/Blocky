@@ -1,115 +1,99 @@
 # Blocky Master Project Snapshot (Condensed)
 
 ## Purpose
-This repository is a build-to-learn blockchain engineering lab plus a learning-platform layer.
+Blocky is a build-to-learn blockchain engineering lab. Current focus is **crypto market analytics**: pull real price data, store it in SQLite, then analyze and visualize it.
 
-You are building two tracks together:
-- blockchain engineering: protocol simulation, Solidity, DeFi/NFT/marketplace, multi-chain
-- learning software: learner progress data model, scoring, and BI analytics
+Learning-platform seed work (users/modules/submissions + Tableau on `learning.db`) is **archived**. Scripts live under `data/archive/`.
 
 ## Working Mode
-- docs-only mode is active
-- assistant writes guidance docs
-- you run commands, tooling, coding, Tableau, and integrations
+- You run commands, DB tools, Tableau, and integrations.
+- Assistant helps with code, schema, docs, and debugging.
+- Prefer relative paths so the repo works on any machine.
 
 ## Current Status Summary
-- project folder structure is in place for contracts, app, protocol simulation, data, and product
-- CI baseline exists in GitHub workflows
-- SQLite database exists at data/sqlite/learning.db
-- core schema exists: users, modules, lessons, checkpoints, submissions, events
-- seed baseline exists: 1 user, 2 modules, 4 lessons, 8 checkpoints
-- analytics views exist: v_completion_funnel and v_error_hotspots
-- Tableau is connected to learning.db and both views are visible
-- you are currently at the Tableau chart-building stage
+- Git: working on branch `dev` (tracks `origin/dev`)
+- CI baseline exists at `.github/workflows/ci.yml`
+- Python ETL stub exists: `data/etl/fetch_prices.py` (CoinGecko ETH daily)
+- Target DB: `data/sqlite/blocky_analytics.db` (**not created yet on this PC**)
+- Archived: `data/archive/seed_submissions.py` + empty placeholder `data/sqlite/learning.db`
+- `requirements.txt` exists (stdlib only for now; untracked until committed)
+- Known issue: `fetch_prices.py` still hardcodes `C:\Users\Ashin\...` — must point at this repo’s `data/sqlite/` path
 
 ## What You Have Completed
-- environment baseline setup was documented and executed with Windows fallbacks
-- Python launcher path works and SQLite fallback via Python is documented
-- schema and views were created for BI reporting
-- initial Tableau worksheets were started for completion and fail analysis
+- Repo + GitHub Desktop + Git for Windows on PATH
+- Learning schema/seed/Tableau phase (archived)
+- Pivot commit: crypto analytics ETL direction
 
-## What Is Blocking Clear Insights Right Now
-- submissions and events are still near-empty
-- with low attempts, v_error_hotspots can appear sparse or blank
-- Tableau charts are structurally correct but insight quality depends on richer sample attempts
+## What Is Blocking Right Now
+1. `blocky_analytics.db` does not exist yet.
+2. No schema for `assets` / `price_daily` tables the ETL expects.
+3. `DB_PATH` in `fetch_prices.py` points at another user’s machine.
 
-## Immediate Next Steps (Tableau Phase)
-1. Add realistic attempts to submissions (both pass and fail) across quiz, coding, and case-study checks.
-2. Refresh Tableau extracts/live connection.
-3. Finalize two visuals:
-- completion by module/topic from v_completion_funnel
-- fail hotspots by check_type from v_error_hotspots
-4. Add one dashboard with both visuals and a topic filter.
-5. Record 3 insights and actions.
+## Immediate Next Steps (Crypto ETL Phase)
+1. Create `data/sqlite/blocky_analytics.db` with schema:
+   - `assets` (id, symbol, name, coingecko_id, …)
+   - `price_daily` (asset_id, price_date, close_usd, volume_usd, market_cap_usd, fetched_at)
+   - unique constraint on `(asset_id, price_date)` for upserts
+2. Seed at least one asset row: Ethereum (`id=1`, symbol `ETH`).
+3. Fix `DB_PATH` in `fetch_prices.py` to a repo-relative path.
+4. Run `py data/etl/fetch_prices.py` and confirm ~30 ETH daily rows.
+5. Validate with SQL, then reconnect Tableau (or start fresh) to `blocky_analytics.db`.
 
-## Suggested SQL For Better Tableau Signal
-Use this to create sample attempts quickly:
-
-```sql
-INSERT INTO submissions (user_id, checkpoint_id, status, score) VALUES
-(1, 1, 'pass', 0.92),
-(1, 2, 'fail', 0.40),
-(1, 3, 'pass', 0.85),
-(1, 4, 'fail', 0.35),
-(1, 5, 'pass', 0.88),
-(1, 6, 'pass', 0.91),
-(1, 7, 'fail', 0.45),
-(1, 8, 'pass', 0.95);
-```
-
-Then validate:
+## Suggested Schema (starter)
 
 ```sql
-SELECT * FROM v_completion_funnel;
-SELECT * FROM v_error_hotspots;
+CREATE TABLE IF NOT EXISTS assets (
+  id INTEGER PRIMARY KEY,
+  symbol TEXT NOT NULL UNIQUE,
+  name TEXT NOT NULL,
+  coingecko_id TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS price_daily (
+  asset_id INTEGER NOT NULL REFERENCES assets(id),
+  price_date TEXT NOT NULL, -- YYYY-MM-DD UTC
+  close_usd REAL NOT NULL,
+  volume_usd REAL,
+  market_cap_usd REAL,
+  fetched_at TEXT NOT NULL,
+  PRIMARY KEY (asset_id, price_date)
+);
+
+INSERT OR IGNORE INTO assets (id, symbol, name, coingecko_id)
+VALUES (1, 'ETH', 'Ethereum', 'ethereum');
 ```
 
-## SQL Tool Choice (No Command-Line Setup)
-- use DB Browser for SQLite as your primary SQL tool right now
-- do not use MySQL tools for this project stage because your data source is a SQLite file, not a MySQL server
-- keep Tableau connected to the same file: data/sqlite/learning.db
+## Run / Validate
 
-DB Browser workflow:
-1. Open DB Browser for SQLite.
-2. Open database file: data/sqlite/learning.db.
-3. Go to Execute SQL.
-4. Run the INSERT block above, then run the two SELECT checks.
-5. Click Write Changes.
-6. In Tableau, click Data > Refresh.
+```powershell
+# from repo root
+py data\etl\fetch_prices.py
+```
 
-Optional fallback without sqlite3 CLI:
-- use Python launcher for one-off SQL scripts if needed (py command)
+```sql
+SELECT count(*) FROM price_daily WHERE asset_id = 1;
+SELECT price_date, close_usd, volume_usd, market_cap_usd
+FROM price_daily
+WHERE asset_id = 1
+ORDER BY price_date DESC
+LIMIT 10;
+```
 
-## Tableau Build Checklist
-- Sheet 1: module completion
-- Columns: module_name
-- Rows: submission_count (or lesson_count)
-- Color: topic
+## Tools In Use
+- Python (`py` launcher), stdlib only (`urllib`, `sqlite3`, `json`, `datetime`)
+- SQLite file DB under `data/sqlite/` (gitignored)
+- DB Browser for SQLite
+- Tableau Desktop via ODBC (point at analytics DB once rows exist)
+- Git / GitHub Desktop on `dev`
 
-- Sheet 2: error hotspots
-- Columns: check_type
-- Rows: fail_count
-- Optional label: total_attempts
+## Evidence To Capture Next Session
+- schema created + ETH asset seeded
+- ETL run output (rows written)
+- sample `SELECT` from `price_daily`
+- note any CoinGecko rate-limit / network errors
 
-- Dashboard:
-- include both sheets
-- add Topic filter
-- add title and one-paragraph interpretation
-
-## Quick Fix Notes For Your Current Tableau State
-- if a sheet looks blank, confirm the sheet is using the correct view table first
-- for completion chart, use fields from v_completion_funnel only
-- for hotspots chart, use fields from v_error_hotspots only
-- if bars do not appear, ensure measure aggregation is SUM and mark type is Bar
-- if values still look sparse, refresh after inserting more submission rows
-
-## Evidence To Capture In Your Next Update
-- table row counts after inserts
-- screenshots of both sheets and dashboard
-- top 3 insights
-- one concrete curriculum action from those insights
-
-## Next Milestone After Tableau
-- wire dashboard metrics into product decisions:
-- adjust lesson sequence or remediation based on fail hotspots
-- define event logging needed for deeper cohort analytics
+## Next Milestone After First Successful Fetch
+- Add more assets (BTC, etc.) without hardcoding `asset_id = 1`
+- Optional analytics views (returns, rolling averages)
+- Tableau sheets on real price history
+- Commit `requirements.txt` and path fix on `dev`

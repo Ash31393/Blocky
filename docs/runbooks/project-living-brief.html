@@ -14,81 +14,49 @@
 </head>
 <body>
   <h1>Blocky Project Living Brief</h1>
-  <p class="meta">Snapshot date: 2026-06-09</p>
+  <p class="meta">Snapshot date: 2026-08-04 · branch: <code>dev</code></p>
 
   <h2>What This Project Is</h2>
-  <p>Blocky is a build-to-learn blockchain engineering lab. You are learning by shipping real software, not only reading theory.</p>
-  <p>The project combines two tracks:</p>
-  <ul>
-    <li>Blockchain engineering track: protocol simulation, Solidity contracts, DeFi/NFT/marketplace modules, and multi-chain deployment.</li>
-    <li>Multi-learning software track: learner progress data model, analytics views, and BI dashboards.</li>
-  </ul>
+  <p>Blocky is a build-to-learn blockchain engineering lab. You learn by shipping real software, not only reading theory.</p>
+  <p>Current active track: <strong>crypto market analytics</strong> — fetch live/historical prices, store in SQLite, analyze and visualize.</p>
+  <p>Archived track: multi-learning progress DB + Tableau on <code>learning.db</code> (scripts under <code>data/archive/</code>).</p>
 
-  <h2>Original Goal</h2>
-  <p>Build a professional portfolio-grade system where you can explain blockchain internals, write safer smart contracts with tests, build product-facing learning flows, and measure outcomes with data and dashboards.</p>
-
-  <h2>Current Status (As Of 2026-06-09)</h2>
-  <h3>Repository and Workflow</h3>
+  <h2>Current Status</h2>
   <ul>
-    <li>Repository structure is created.</li>
-    <li>Docs-only execution model is active: you run commands and tools; Copilot maintains documentation and guidance.</li>
-    <li>Baseline CI workflow file exists at .github/workflows/ci.yml.</li>
-  </ul>
-
-  <h3>Data and Analytics Progress</h3>
-  <ul>
-    <li>Local SQLite database exists at data/sqlite/learning.db.</li>
-    <li>Core schema exists: users, modules, lessons, checkpoints, submissions, events.</li>
-    <li>Seed data confirmed: users 1, modules 2, lessons 4, checkpoints 8, submissions 0, events 0.</li>
-    <li>BI views created: v_completion_funnel, v_error_hotspots.</li>
-  </ul>
-
-  <h3>Tableau Progress</h3>
-  <ul>
-    <li>Tableau is connected to learning.db through ODBC (SQLite3 Datasource).</li>
-    <li>v_completion_funnel has been dragged into the data model and rows are visible.</li>
-    <li>Next charting work is to build sheet visuals from the two views.</li>
+    <li>Git works; active branch is <code>dev</code> tracking <code>origin/dev</code>.</li>
+    <li>ETL stub: <code>data/etl/fetch_prices.py</code> (CoinGecko ETH daily, 30 days).</li>
+    <li><code>data/sqlite/blocky_analytics.db</code> not created yet on this machine.</li>
+    <li><code>fetch_prices.py</code> still has a hardcoded old-machine path — must be fixed before run.</li>
+    <li>Learning seed phase is done/archived; empty <code>learning.db</code> placeholder may remain.</li>
   </ul>
 
   <h2>Tools In Use</h2>
-  <h3>Core Dev</h3>
   <ul>
-    <li>Node.js and npm</li>
-    <li>Git</li>
-    <li>Python (via py launcher)</li>
-    <li>PowerShell</li>
-  </ul>
-
-  <h3>Blockchain</h3>
-  <ul>
-    <li>Foundry stack target: forge, cast, anvil</li>
-  </ul>
-
-  <h3>Data and BI</h3>
-  <ul>
-    <li>SQLite database file at data/sqlite/learning.db</li>
-    <li>DB Browser for SQLite</li>
-    <li>Tableau Desktop via ODBC SQLite3 driver</li>
+    <li>Node.js / npm (CI placeholders)</li>
+    <li>Git + GitHub Desktop</li>
+    <li>Python via <code>py</code></li>
+    <li>SQLite + DB Browser</li>
+    <li>Tableau Desktop (after real price rows exist)</li>
   </ul>
 
   <h2>What To Do Next</h2>
   <ol>
-    <li>Tableau chart 1 (completion by module): source v_completion_funnel, X Module Name, Y Lesson Count or Submission Count, Color Topic.</li>
-    <li>Tableau chart 2 (fail hotspots): source v_error_hotspots, X check_type, Y fail_count.</li>
-    <li>Insert sample rows into submissions, then re-query both views and validate hotspot signal.</li>
-    <li>Capture screenshots and top 3 insights in runbooks.</li>
+    <li>Create <code>blocky_analytics.db</code> with <code>assets</code> + <code>price_daily</code> schema; seed ETH.</li>
+    <li>Fix <code>DB_PATH</code> in <code>fetch_prices.py</code> to a repo-relative path.</li>
+    <li>Run the ETL and validate row counts / latest prices.</li>
+    <li>Point Tableau at the analytics DB and build first price chart.</li>
   </ol>
 
-  <h2>Working Agreement</h2>
-  <p>This is the living master brief. Update the markdown source each session and export a new PDF snapshot after meaningful updates.</p>
-
   <h2>Session Checkpoint Log</h2>
+  <h3>2026-08-04</h3>
+  <ul>
+    <li>Confirmed Git on PATH; working on <code>dev</code>.</li>
+    <li>Documented pivot away from learning seed toward CoinGecko ETL + real DB.</li>
+    <li>Next action: create analytics schema and run first successful fetch.</li>
+  </ul>
   <h3>2026-06-09</h3>
   <ul>
-    <li>SQLite schema and seed checkpoint confirmed.</li>
-    <li>ODBC connection to Tableau completed.</li>
-    <li>v_completion_funnel loaded in Tableau data model.</li>
-    <li>Next action: complete two Tableau visuals and capture insights.</li>
+    <li>Learning.db schema/seed + Tableau ODBC (now archived).</li>
   </ul>
 </body>
 </html>
