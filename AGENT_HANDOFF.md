@@ -54,22 +54,22 @@ This master file contains the complete ecosystem context. Agents doing focused w
 2. Read this master file when cross-project history or strategy matters.
 3. Read the relevant project handoff:
 
-| Project | Focused handoff |
-| --- | --- |
-| React Mega API Hub | [`PROJECT_REACT_MEGA_API_HUB.md`](project-handoffs/PROJECT_REACT_MEGA_API_HUB.md) |
+| Project                  | Focused handoff                                                                               |
+| ------------------------ | --------------------------------------------------------------------------------------------- |
+| React Mega API Hub       | [`PROJECT_REACT_MEGA_API_HUB.md`](project-handoffs/PROJECT_REACT_MEGA_API_HUB.md)             |
 | Marketplace Intelligence | [`PROJECT_MARKETPLACE_INTELLIGENCE.md`](project-handoffs/PROJECT_MARKETPLACE_INTELLIGENCE.md) |
-| Math Lab (`mathy`) | [`PROJECT_MATHY.md`](project-handoffs/PROJECT_MATHY.md) |
-| Go Language Lab | [`PROJECT_LANGUAGE_LAB.md`](project-handoffs/PROJECT_LANGUAGE_LAB.md) |
-| Blockchain/Web3 | [`PROJECT_BLOCKCHAIN_WEB3.md`](project-handoffs/PROJECT_BLOCKCHAIN_WEB3.md) |
-| Retro Game Preservation | [`PROJECT_RETRO_GAME_PRESERVATION.md`](project-handoffs/PROJECT_RETRO_GAME_PRESERVATION.md) |
-| Chess Analytics | [`PROJECT_CHESS_ANALYTICS.md`](project-handoffs/PROJECT_CHESS_ANALYTICS.md) |
-| Sports Data | [`PROJECT_SPORTS_DATA.md`](project-handoffs/PROJECT_SPORTS_DATA.md) |
-| Science/Space/Nature | [`PROJECT_SCIENCE_SPACE_NATURE.md`](project-handoffs/PROJECT_SCIENCE_SPACE_NATURE.md) |
-| History/Archives/Media | [`PROJECT_HISTORY_ARCHIVES_MEDIA.md`](project-handoffs/PROJECT_HISTORY_ARCHIVES_MEDIA.md) |
-| Reference Collector | [`PROJECT_REFERENCE_COLLECTOR.md`](project-handoffs/PROJECT_REFERENCE_COLLECTOR.md) |
-| Homelab/DevOps | [`PROJECT_HOMELAB_DEVOPS.md`](project-handoffs/PROJECT_HOMELAB_DEVOPS.md) |
-| Cybersecurity/Kali | [`PROJECT_CYBERSECURITY_KALI.md`](project-handoffs/PROJECT_CYBERSECURITY_KALI.md) |
-| Shared Data/AI Platform | [`PROJECT_SHARED_DATA_AI_PLATFORM.md`](project-handoffs/PROJECT_SHARED_DATA_AI_PLATFORM.md) |
+| Math Lab (`mathy`)       | [`PROJECT_MATHY.md`](project-handoffs/PROJECT_MATHY.md)                                       |
+| Go Language Lab          | [`PROJECT_LANGUAGE_LAB.md`](project-handoffs/PROJECT_LANGUAGE_LAB.md)                         |
+| Blockchain/Web3          | [`PROJECT_BLOCKCHAIN_WEB3.md`](project-handoffs/PROJECT_BLOCKCHAIN_WEB3.md)                   |
+| Retro Game Preservation  | [`PROJECT_RETRO_GAME_PRESERVATION.md`](project-handoffs/PROJECT_RETRO_GAME_PRESERVATION.md)   |
+| Chess Analytics          | [`PROJECT_CHESS_ANALYTICS.md`](project-handoffs/PROJECT_CHESS_ANALYTICS.md)                   |
+| Sports Data              | [`PROJECT_SPORTS_DATA.md`](project-handoffs/PROJECT_SPORTS_DATA.md)                           |
+| Science/Space/Nature     | [`PROJECT_SCIENCE_SPACE_NATURE.md`](project-handoffs/PROJECT_SCIENCE_SPACE_NATURE.md)         |
+| History/Archives/Media   | [`PROJECT_HISTORY_ARCHIVES_MEDIA.md`](project-handoffs/PROJECT_HISTORY_ARCHIVES_MEDIA.md)     |
+| Reference Collector      | [`PROJECT_REFERENCE_COLLECTOR.md`](project-handoffs/PROJECT_REFERENCE_COLLECTOR.md)           |
+| Homelab/DevOps           | [`PROJECT_HOMELAB_DEVOPS.md`](project-handoffs/PROJECT_HOMELAB_DEVOPS.md)                     |
+| Cybersecurity/Kali       | [`PROJECT_CYBERSECURITY_KALI.md`](project-handoffs/PROJECT_CYBERSECURITY_KALI.md)             |
+| Shared Data/AI Platform  | [`PROJECT_SHARED_DATA_AI_PLATFORM.md`](project-handoffs/PROJECT_SHARED_DATA_AI_PLATFORM.md)   |
 
 The focused handoffs are working summaries, while this master remains the broadest source of ecosystem context. Update both the relevant focused file and this master when a decision affects multiple projects.
 
@@ -194,14 +194,14 @@ Do not confuse “the user types the code” with withholding help. Give exact c
 
 ### 2A.2 Available collaboration modes
 
-| Mode | When to use | Agent behavior | User behavior |
-| --- | --- | --- | --- |
-| Guided implementation | Default for learning work | Teach, provide small steps, explain, inspect output | Type commands and code |
-| Pair programming | User wants faster back-and-forth | Propose a small change, review user code, debug together | Writes most code and discusses choices |
-| Exercise mode | Practicing a known concept | Give requirements, hints, tests, and feedback before answers | Attempts solution independently |
-| Demonstration mode | A concept needs a compact example | Show a minimal example, then dissect it | Runs/modifies example |
-| Direct implementation | Only when explicitly requested | Edit/build/test the requested work, then explain | Reviews and asks questions |
-| Review/diagnosis | User asks what is wrong or how code works | Inspect and explain; do not rewrite everything automatically | Provides code/output and decides next change |
+| Mode                  | When to use                               | Agent behavior                                               | User behavior                                |
+| --------------------- | ----------------------------------------- | ------------------------------------------------------------ | -------------------------------------------- |
+| Guided implementation | Default for learning work                 | Teach, provide small steps, explain, inspect output          | Type commands and code                       |
+| Pair programming      | User wants faster back-and-forth          | Propose a small change, review user code, debug together     | Writes most code and discusses choices       |
+| Exercise mode         | Practicing a known concept                | Give requirements, hints, tests, and feedback before answers | Attempts solution independently              |
+| Demonstration mode    | A concept needs a compact example         | Show a minimal example, then dissect it                      | Runs/modifies example                        |
+| Direct implementation | Only when explicitly requested            | Edit/build/test the requested work, then explain             | Reviews and asks questions                   |
+| Review/diagnosis      | User asks what is wrong or how code works | Inspect and explain; do not rewrite everything automatically | Provides code/output and decides next change |
 
 If the desired mode is unclear, preserve momentum with guided implementation rather than asking a broad process question.
 
@@ -335,20 +335,20 @@ Also explain:
 
 Do not teach these as an isolated memorization dump. Introduce them when the project needs them.
 
-| Purpose | Bash/Linux/macOS | PowerShell | Teaching note |
-| --- | --- | --- | --- |
-| Show current directory | `pwd` | `Get-Location` (`pwd` alias) | Establish where the next command acts |
-| List directory | `ls -la` | `Get-ChildItem` (`ls` alias) | Explain hidden files and metadata |
-| Create directory | `mkdir marketplace-service` | `New-Item -ItemType Directory marketplace-service` | Explain relative path and naming |
-| Enter directory | `cd marketplace-service` | `Set-Location marketplace-service` (`cd`) | Explain that the shell's working directory changes |
-| Create empty file | `touch README.md` | `New-Item -ItemType File README.md` | Prefer editor creation when content is immediately needed |
-| Copy file | `cp source target` | `Copy-Item source target` | Explain source and destination order |
-| Move/rename | `mv old new` | `Move-Item old new` | Same mechanism often handles move and rename |
-| Remove file | `rm file` | `Remove-Item file` | Pause and verify target; deletion can be destructive |
-| Create nested folders | `mkdir -p src/tests` | `New-Item -ItemType Directory -Force src/tests` | Explain parent creation and `-Force` behavior |
-| Show file content | `less file`, `head`, `tail` | `Get-Content file` | Select command based on file size/use |
-| Search text | `rg 'pattern'` | `rg 'pattern'` if installed | Prefer ripgrep for code searches |
-| Find files | `find`, `fd` | `Get-ChildItem -Recurse` or `fd` | Explain filename versus content search |
+| Purpose                | Bash/Linux/macOS            | PowerShell                                         | Teaching note                                             |
+| ---------------------- | --------------------------- | -------------------------------------------------- | --------------------------------------------------------- |
+| Show current directory | `pwd`                       | `Get-Location` (`pwd` alias)                       | Establish where the next command acts                     |
+| List directory         | `ls -la`                    | `Get-ChildItem` (`ls` alias)                       | Explain hidden files and metadata                         |
+| Create directory       | `mkdir marketplace-service` | `New-Item -ItemType Directory marketplace-service` | Explain relative path and naming                          |
+| Enter directory        | `cd marketplace-service`    | `Set-Location marketplace-service` (`cd`)          | Explain that the shell's working directory changes        |
+| Create empty file      | `touch README.md`           | `New-Item -ItemType File README.md`                | Prefer editor creation when content is immediately needed |
+| Copy file              | `cp source target`          | `Copy-Item source target`                          | Explain source and destination order                      |
+| Move/rename            | `mv old new`                | `Move-Item old new`                                | Same mechanism often handles move and rename              |
+| Remove file            | `rm file`                   | `Remove-Item file`                                 | Pause and verify target; deletion can be destructive      |
+| Create nested folders  | `mkdir -p src/tests`        | `New-Item -ItemType Directory -Force src/tests`    | Explain parent creation and `-Force` behavior             |
+| Show file content      | `less file`, `head`, `tail` | `Get-Content file`                                 | Select command based on file size/use                     |
+| Search text            | `rg 'pattern'`              | `rg 'pattern'` if installed                        | Prefer ripgrep for code searches                          |
+| Find files             | `find`, `fd`                | `Get-ChildItem -Recurse` or `fd`                   | Explain filename versus content search                    |
 
 Never use a destructive command merely for demonstration. Before `rm`, recursive deletion, overwriting, database drops, container-volume deletion, or force operations, resolve and restate the exact target.
 
@@ -463,19 +463,19 @@ When the user provides an error:
 
 Teach the appropriate tools for the layer:
 
-| Layer | Examples of tools/techniques |
-| --- | --- |
-| Browser/UI | DevTools Elements, Console, Network, React DevTools |
-| TypeScript/Node | stack traces, source maps, debugger, tests, type checker |
-| Python | tracebacks, `breakpoint()`, logging, pytest, Ruff/type checking |
-| Go | returned errors, `slog`, Delve, `go test`, race detector |
-| Rust | compiler diagnostics, `dbg!`, `RUST_BACKTRACE`, tests, Clippy |
-| API | `curl`, HTTPie, Bruno/Postman/Insomnia, OpenAPI docs |
-| Database | `psql`, SQL clients, constraints, transactions, `EXPLAIN ANALYZE` |
-| Docker | `docker ps`, `docker logs`, `docker inspect`, Compose status |
-| Linux | `journalctl`, `systemctl`, `ss`, `ps`, `top`/`htop`, permissions |
-| Network | `ping` where useful, `curl`, `dig`, `traceroute`, `tcpdump`, Wireshark |
-| Git | `status`, `diff`, `log`, `show`, branch comparison |
+| Layer           | Examples of tools/techniques                                           |
+| --------------- | ---------------------------------------------------------------------- |
+| Browser/UI      | DevTools Elements, Console, Network, React DevTools                    |
+| TypeScript/Node | stack traces, source maps, debugger, tests, type checker               |
+| Python          | tracebacks, `breakpoint()`, logging, pytest, Ruff/type checking        |
+| Go              | returned errors, `slog`, Delve, `go test`, race detector               |
+| Rust            | compiler diagnostics, `dbg!`, `RUST_BACKTRACE`, tests, Clippy          |
+| API             | `curl`, HTTPie, Bruno/Postman/Insomnia, OpenAPI docs                   |
+| Database        | `psql`, SQL clients, constraints, transactions, `EXPLAIN ANALYZE`      |
+| Docker          | `docker ps`, `docker logs`, `docker inspect`, Compose status           |
+| Linux           | `journalctl`, `systemctl`, `ss`, `ps`, `top`/`htop`, permissions       |
+| Network         | `ping` where useful, `curl`, `dig`, `traceroute`, `tcpdump`, Wireshark |
+| Git             | `status`, `diff`, `log`, `show`, branch comparison                     |
 
 Only introduce commands needed for the current diagnosis, then explain how they generalize.
 
@@ -510,35 +510,35 @@ Do not install ten overlapping programs at once. Breadth should accumulate over 
 
 ### 2E.2 Software categories to incorporate progressively
 
-| Category | Primary/current candidates | Alternatives or later exposure | Learning purpose |
-| --- | --- | --- | --- |
-| Editors/IDEs | Cursor, VS Code, Visual Studio, PyCharm | IntelliJ IDEA, WebStorm, GoLand, RustRover, DataGrip, Zed | editor workflows, debugging, refactoring, language tooling |
-| Source control | Git, GitHub | GitLab, Forgejo/Gitea in homelab | branches, reviews, issues, CI, self-hosting |
-| API clients | browser/OpenAPI UI, `curl` | HTTPie, Bruno, Postman, Insomnia | inspect requests, headers, payloads, authentication |
-| API design | FastAPI/OpenAPI | Swagger Editor, Stoplight, Redoc, Spectral | contracts, validation, documentation |
-| Relational databases | PostgreSQL | SQLite, MySQL/MariaDB, SQL Server | schema design, transactions, dialect differences |
-| Database GUIs | pgAdmin or DBeaver | DataGrip, Beekeeper Studio, SSMS, Azure Data Studio alternatives | query, inspect schemas, plans, administration |
-| Data transformation | Python/Pandas, SQL | Polars, DuckDB, dbt, R/tidyverse | cleaning, analytical queries, reproducible transformations |
-| Notebooks | JupyterLab | VS Code notebooks, Quarto, Observable | experiments, explanations, reproducible analysis |
-| Visualization/BI | Matplotlib | Seaborn, Plotly, Altair, Power BI, Tableau Public, Grafana | charts, dashboards, monitoring, storytelling |
-| Containers | Docker, Compose | Podman, containerd concepts | reproducibility, isolation, deployment |
-| Virtualization | Proxmox | Hyper-V, VirtualBox, VMware concepts | VMs, LXCs, snapshots, networking |
-| CI/CD | GitHub Actions | GitLab CI, Jenkins, Woodpecker | automated quality checks and delivery |
-| Task/build runners | npm scripts, language-native commands | Make, Just, Taskfile | repeatable developer commands |
-| Testing | pytest, Vitest, Go test, Cargo test | Playwright, Cypress, k6, Postman/Bruno tests | correctness from units to end-to-end/load |
-| Code quality | Ruff, Prettier, ESLint, Clippy | Biome, Black, mypy/pyright, golangci-lint | formatting, linting, types, consistency |
-| Observability | logs, Dozzle, Uptime Kuma | Prometheus, Grafana, Loki, OpenTelemetry, Sentry | health, metrics, traces, alerting |
-| Networking | Tailscale, Nginx Proxy Manager | Caddy, Traefik, Cloudflare Tunnel concepts | DNS, routing, proxies, TLS, secure remote access |
-| Secrets/config | `.env` locally | SOPS, age, Vault, Docker secrets, GitHub secrets | configuration and secret lifecycle |
-| Documentation | Markdown, Mermaid | MkDocs, Docusaurus, Sphinx, Quarto | durable knowledge and generated docs |
-| Architecture modeling | Mermaid | draw.io/diagrams.net, Excalidraw, PlantUML | visualize systems and data flow |
-| Project management | Markdown/GitHub Issues | GitHub Projects, Trello, Linear, Jira, Obsidian | backlog, milestones, decision tracking |
-| Data/versioning | Git for code | DVC, lakeFS concepts, object storage | datasets, lineage, reproducibility |
-| Messaging/jobs | simple in-process jobs first | Redis, Celery/RQ, RabbitMQ, NATS, Kafka concepts | background work and event-driven design |
-| Search | PostgreSQL search first | Meilisearch, Typesense, Elasticsearch/OpenSearch | indexing and retrieval |
-| Local AI | Python/RTX 3090 experiments | Ollama, llama.cpp, vLLM, MLflow | inference, serving, experiment tracking |
-| Security | dependency updates and basic scanning | Trivy, Semgrep, CodeQL, OWASP ZAP | supply chain, static analysis, web testing |
-| 2D/3D/game tools | Godot, Unity, Blender, Krita | Unreal, Aseprite, Blockbench, Bforartists, UPBGE | creative pipelines and engine/tool comparisons |
+| Category              | Primary/current candidates              | Alternatives or later exposure                                   | Learning purpose                                           |
+| --------------------- | --------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------- |
+| Editors/IDEs          | Cursor, VS Code, Visual Studio, PyCharm | IntelliJ IDEA, WebStorm, GoLand, RustRover, DataGrip, Zed        | editor workflows, debugging, refactoring, language tooling |
+| Source control        | Git, GitHub                             | GitLab, Forgejo/Gitea in homelab                                 | branches, reviews, issues, CI, self-hosting                |
+| API clients           | browser/OpenAPI UI, `curl`              | HTTPie, Bruno, Postman, Insomnia                                 | inspect requests, headers, payloads, authentication        |
+| API design            | FastAPI/OpenAPI                         | Swagger Editor, Stoplight, Redoc, Spectral                       | contracts, validation, documentation                       |
+| Relational databases  | PostgreSQL                              | SQLite, MySQL/MariaDB, SQL Server                                | schema design, transactions, dialect differences           |
+| Database GUIs         | pgAdmin or DBeaver                      | DataGrip, Beekeeper Studio, SSMS, Azure Data Studio alternatives | query, inspect schemas, plans, administration              |
+| Data transformation   | Python/Pandas, SQL                      | Polars, DuckDB, dbt, R/tidyverse                                 | cleaning, analytical queries, reproducible transformations |
+| Notebooks             | JupyterLab                              | VS Code notebooks, Quarto, Observable                            | experiments, explanations, reproducible analysis           |
+| Visualization/BI      | Matplotlib                              | Seaborn, Plotly, Altair, Power BI, Tableau Public, Grafana       | charts, dashboards, monitoring, storytelling               |
+| Containers            | Docker, Compose                         | Podman, containerd concepts                                      | reproducibility, isolation, deployment                     |
+| Virtualization        | Proxmox                                 | Hyper-V, VirtualBox, VMware concepts                             | VMs, LXCs, snapshots, networking                           |
+| CI/CD                 | GitHub Actions                          | GitLab CI, Jenkins, Woodpecker                                   | automated quality checks and delivery                      |
+| Task/build runners    | npm scripts, language-native commands   | Make, Just, Taskfile                                             | repeatable developer commands                              |
+| Testing               | pytest, Vitest, Go test, Cargo test     | Playwright, Cypress, k6, Postman/Bruno tests                     | correctness from units to end-to-end/load                  |
+| Code quality          | Ruff, Prettier, ESLint, Clippy          | Biome, Black, mypy/pyright, golangci-lint                        | formatting, linting, types, consistency                    |
+| Observability         | logs, Dozzle, Uptime Kuma               | Prometheus, Grafana, Loki, OpenTelemetry, Sentry                 | health, metrics, traces, alerting                          |
+| Networking            | Tailscale, Nginx Proxy Manager          | Caddy, Traefik, Cloudflare Tunnel concepts                       | DNS, routing, proxies, TLS, secure remote access           |
+| Secrets/config        | `.env` locally                          | SOPS, age, Vault, Docker secrets, GitHub secrets                 | configuration and secret lifecycle                         |
+| Documentation         | Markdown, Mermaid                       | MkDocs, Docusaurus, Sphinx, Quarto                               | durable knowledge and generated docs                       |
+| Architecture modeling | Mermaid                                 | draw.io/diagrams.net, Excalidraw, PlantUML                       | visualize systems and data flow                            |
+| Project management    | Markdown/GitHub Issues                  | GitHub Projects, Trello, Linear, Jira, Obsidian                  | backlog, milestones, decision tracking                     |
+| Data/versioning       | Git for code                            | DVC, lakeFS concepts, object storage                             | datasets, lineage, reproducibility                         |
+| Messaging/jobs        | simple in-process jobs first            | Redis, Celery/RQ, RabbitMQ, NATS, Kafka concepts                 | background work and event-driven design                    |
+| Search                | PostgreSQL search first                 | Meilisearch, Typesense, Elasticsearch/OpenSearch                 | indexing and retrieval                                     |
+| Local AI              | Python/RTX 3090 experiments             | Ollama, llama.cpp, vLLM, MLflow                                  | inference, serving, experiment tracking                    |
+| Security              | dependency updates and basic scanning   | Trivy, Semgrep, CodeQL, OWASP ZAP                                | supply chain, static analysis, web testing                 |
+| 2D/3D/game tools      | Godot, Unity, Blender, Krita            | Unreal, Aseprite, Blockbench, Bforartists, UPBGE                 | creative pipelines and engine/tool comparisons             |
 
 This is an exposure catalog, not a requirement to adopt every item.
 
@@ -638,21 +638,21 @@ Do not overwrite raw data with cleaned data. Reproducibility matters.
 
 ## 4. Ecosystem Project Registry
 
-| Project / domain | Status | Primary purpose | Likely main stack | Hub relationship |
-| --- | --- | --- | --- | --- |
-| React Mega API Hub (`reactPrac`) | Confirmed, existing repo | Learn React deeply and provide a common UI for services | React, TypeScript, Vite | Central front end |
-| Marketplace Intelligence | Confirmed direction, early planning | Collectibles valuation, trend, liquidity, and decision support | Python, Pandas, FastAPI, PostgreSQL | Independent service + dashboard module |
-| Math Lab (`mathy`) | Confirmed, active repo | Algebra through calculus/linear algebra/statistics and AI math | Python, SymPy, NumPy, Matplotlib, Jupyter | Supplies skills/models to other domains |
-| Language Lab | Confirmed direction | Grammar, writing, vocabulary, proficiency, NLP | Go backend, React/TS, PostgreSQL | Independent Go service + module |
-| Blockchain/Web3 Lab | Confirmed direction, brainstorming | Learn ledgers, contracts, wallets, NFTs, DeFi, logistics | Language depends on subproject; Solidity likely later | Services and data modules |
-| Retro Game Preservation Lab | Confirmed idea, research stage | Learn emulation, archival metadata, browser delivery, preservation | Web tech, emulation runtimes, storage | Catalog/player module where lawful |
-| Chess Analytics | Confirmed idea; React chess repo exists | Personal game analysis, openings, trends, statistics, engine integration | React/TS plus data/backend service | Chess module |
-| Sports Data Ecosystem | Confirmed idea | NBA, NFL, NHL, UFC, WWE, F1, Olympics, and more | Per-service language; common schemas | Multiple modules/services |
-| Science / Space / Nature Data | Confirmed idea | Weather, NASA, SpaceX, geospatial, animals/wildlife | Per-service language | Multiple modules/services |
-| History / Archives / Media | Confirmed idea | History, antiques, film, TV, music, inventions, patents | Search/data services | Enrichment for hub and marketplace |
-| Reference Collector | Existing Python project | Collect and process reference assets/information | Python, httpx, Pillow, Typer, Rich | Possible ingestion utility/service |
-| Homelab / DevOps Lab | Existing and active | Host, secure, monitor, and learn infrastructure | Proxmox, Debian, Docker, Tailscale, Synology | Deployment foundation |
-| Cybersecurity / Kali Lab | Existing learning environment | Learn tools safely in authorized lab systems | Kali, Wireshark, Linux tooling | Security testing/observability support |
+| Project / domain                 | Status                                  | Primary purpose                                                          | Likely main stack                                     | Hub relationship                        |
+| -------------------------------- | --------------------------------------- | ------------------------------------------------------------------------ | ----------------------------------------------------- | --------------------------------------- |
+| React Mega API Hub (`reactPrac`) | Confirmed, existing repo                | Learn React deeply and provide a common UI for services                  | React, TypeScript, Vite                               | Central front end                       |
+| Marketplace Intelligence         | Confirmed direction, early planning     | Collectibles valuation, trend, liquidity, and decision support           | Python, Pandas, FastAPI, PostgreSQL                   | Independent service + dashboard module  |
+| Math Lab (`mathy`)               | Confirmed, active repo                  | Algebra through calculus/linear algebra/statistics and AI math           | Python, SymPy, NumPy, Matplotlib, Jupyter             | Supplies skills/models to other domains |
+| Language Lab                     | Confirmed direction                     | Grammar, writing, vocabulary, proficiency, NLP                           | Go backend, React/TS, PostgreSQL                      | Independent Go service + module         |
+| Blockchain/Web3 Lab              | Confirmed direction, brainstorming      | Learn ledgers, contracts, wallets, NFTs, DeFi, logistics                 | Language depends on subproject; Solidity likely later | Services and data modules               |
+| Retro Game Preservation Lab      | Confirmed idea, research stage          | Learn emulation, archival metadata, browser delivery, preservation       | Web tech, emulation runtimes, storage                 | Catalog/player module where lawful      |
+| Chess Analytics                  | Confirmed idea; React chess repo exists | Personal game analysis, openings, trends, statistics, engine integration | React/TS plus data/backend service                    | Chess module                            |
+| Sports Data Ecosystem            | Confirmed idea                          | NBA, NFL, NHL, UFC, WWE, F1, Olympics, and more                          | Per-service language; common schemas                  | Multiple modules/services               |
+| Science / Space / Nature Data    | Confirmed idea                          | Weather, NASA, SpaceX, geospatial, animals/wildlife                      | Per-service language                                  | Multiple modules/services               |
+| History / Archives / Media       | Confirmed idea                          | History, antiques, film, TV, music, inventions, patents                  | Search/data services                                  | Enrichment for hub and marketplace      |
+| Reference Collector              | Existing Python project                 | Collect and process reference assets/information                         | Python, httpx, Pillow, Typer, Rich                    | Possible ingestion utility/service      |
+| Homelab / DevOps Lab             | Existing and active                     | Host, secure, monitor, and learn infrastructure                          | Proxmox, Debian, Docker, Tailscale, Synology          | Deployment foundation                   |
+| Cybersecurity / Kali Lab         | Existing learning environment           | Learn tools safely in authorized lab systems                             | Kali, Wireshark, Linux tooling                        | Security testing/observability support  |
 
 This registry should be updated whenever a project moves from proposed to active, receives a repository, changes stack, or reaches a milestone.
 
@@ -946,20 +946,20 @@ The dataset can potentially support:
 
 This project is a natural applied laboratory for the `mathy` curriculum:
 
-| Math stage | Marketplace application |
-| --- | --- |
-| Arithmetic / percentages | fees, discounts, markup, margin, break-even |
-| Algebra 1 | solve for maximum purchase price or target profit |
-| Algebra 2 | nonlinear price relationships, exponentials, functions |
-| Geometry | image measurements, centering, surface-area concepts |
-| Trigonometry | image perspective correction and orientation |
-| Statistics | distributions, sampling bias, confidence intervals, regression |
-| Probability | sale probability, condition uncertainty, expected value |
-| Calculus | rate of price change, optimization, accumulation over time |
-| Linear algebra | feature vectors, embeddings, regression, recommendation systems |
-| Discrete math | item matching, graphs, combinations, marketplace networks |
-| Machine learning | entity resolution, forecasting, classification, anomaly detection |
-| Deep learning | image-based card identification, condition/defect assistance, embeddings |
+| Math stage               | Marketplace application                                                  |
+| ------------------------ | ------------------------------------------------------------------------ |
+| Arithmetic / percentages | fees, discounts, markup, margin, break-even                              |
+| Algebra 1                | solve for maximum purchase price or target profit                        |
+| Algebra 2                | nonlinear price relationships, exponentials, functions                   |
+| Geometry                 | image measurements, centering, surface-area concepts                     |
+| Trigonometry             | image perspective correction and orientation                             |
+| Statistics               | distributions, sampling bias, confidence intervals, regression           |
+| Probability              | sale probability, condition uncertainty, expected value                  |
+| Calculus                 | rate of price change, optimization, accumulation over time               |
+| Linear algebra           | feature vectors, embeddings, regression, recommendation systems          |
+| Discrete math            | item matching, graphs, combinations, marketplace networks                |
+| Machine learning         | entity resolution, forecasting, classification, anomaly detection        |
+| Deep learning            | image-based card identification, condition/defect assistance, embeddings |
 
 ### 7.8 Early milestone plan
 
@@ -1541,19 +1541,19 @@ The user has an RTX 3090 desktop, which may support local model experiments. Do 
 
 ## 19. Technology and Language Learning Matrix
 
-| Technology | Current/likely role | Learning value |
-| --- | --- | --- |
-| TypeScript / React | Hub UI, dashboards, interactive tools | front-end architecture, types, state, testing |
-| Python | data ingestion, analysis, ML, FastAPI services | data ecosystem, rapid experimentation |
-| Go | Language Lab backend and systems/API learning | concurrency, static typing, deployment simplicity |
-| Rust | independent services and systems learning | ownership, safety, performance |
-| Java | enterprise/API experiments, possible LanguageTool work | JVM ecosystem, OOP, mature frameworks |
-| SQL | all data-rich projects | modeling, querying, performance, analytics |
-| R | statistical analysis and comparison with Python | statistics, reporting, visualization |
-| JavaScript | web fundamentals and runtime understanding | browser and Node ecosystem |
-| C/C++ | later systems/emulation/game/low-level study | memory, performance, native systems |
-| Solidity | later smart-contract work | EVM programming and security |
-| Bash / PowerShell | automation and administration | Linux/Windows operations |
+| Technology         | Current/likely role                                    | Learning value                                    |
+| ------------------ | ------------------------------------------------------ | ------------------------------------------------- |
+| TypeScript / React | Hub UI, dashboards, interactive tools                  | front-end architecture, types, state, testing     |
+| Python             | data ingestion, analysis, ML, FastAPI services         | data ecosystem, rapid experimentation             |
+| Go                 | Language Lab backend and systems/API learning          | concurrency, static typing, deployment simplicity |
+| Rust               | independent services and systems learning              | ownership, safety, performance                    |
+| Java               | enterprise/API experiments, possible LanguageTool work | JVM ecosystem, OOP, mature frameworks             |
+| SQL                | all data-rich projects                                 | modeling, querying, performance, analytics        |
+| R                  | statistical analysis and comparison with Python        | statistics, reporting, visualization              |
+| JavaScript         | web fundamentals and runtime understanding             | browser and Node ecosystem                        |
+| C/C++              | later systems/emulation/game/low-level study           | memory, performance, native systems               |
+| Solidity           | later smart-contract work                              | EVM programming and security                      |
+| Bash / PowerShell  | automation and administration                          | Linux/Windows operations                          |
 
 Do not force every language into every project. Give each language a meaningful domain or service.
 
@@ -1836,15 +1836,19 @@ Suggested format:
 - Status: Proposed | Accepted | Superseded
 
 ## Context
+
 What problem or constraint led to the decision?
 
 ## Decision
+
 What was chosen?
 
 ## Alternatives considered
+
 What else was evaluated?
 
 ## Consequences
+
 What becomes easier, harder, or deferred?
 ```
 
