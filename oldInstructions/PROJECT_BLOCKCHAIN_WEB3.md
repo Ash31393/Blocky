@@ -51,4 +51,3 @@ Choose the toy-ledger implementation language and define the exact learning outc
 ## Update Log
 
 - 2026-09-02: Initial project-specific handoff created.
-
