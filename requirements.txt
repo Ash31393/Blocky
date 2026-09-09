@@ -1,0 +1,7 @@
+# Blocky — Python dependencies
+# Current scripts (data/etl, data/archive) use only the Python standard library:
+#   sqlite3, json, urllib.request, datetime
+# No third-party packages required yet. Add pinned deps below as you introduce them.
+# Example when needed:
+#   requests>=2.32.0
+#   pandas>=2.2.0
