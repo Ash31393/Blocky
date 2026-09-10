@@ -1,10 +1,13 @@
-
 import json
 import sqlite3
 import urllib.request
-from datetime import datetime, timezone
+from datetime import UTC, datetime
+from pathlib import Path
 
-DB_PATH = r"C:\Users\Ashin\blocky\data\sqlite\blocky_analytics.db"
+# Repo-relative: .../Blocky/data/sqlite/blocky_analytics.db
+DB_PATH = (
+    Path(__file__).resolve().parents[2] / "data" / "sqlite" / "blocky_analytics.db"
+)
 API_URL = (
     "https://api.coingecko.com/api/v3/coins/ethereum/market_chart"
     "?vs_currency=usd&days=30&interval=daily"
@@ -18,6 +21,7 @@ def fetch_prices():
 
 
 def connect():
+    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     return conn
@@ -27,15 +31,13 @@ def save_eth_prices(conn, payload):
     prices = payload["prices"]
     volumes = {ms: v for ms, v in payload.get("total_volumes", [])}
     market_caps = {ms: m for ms, m in payload.get("market_caps", [])}
-    fetched_at = datetime.now(timezone.utc).isoformat()
+    fetched_at = datetime.now(UTC).isoformat()
 
     cur = conn.cursor()
     rows_written = 0
 
     for ms, close_usd in prices:
-        price_date = datetime.fromtimestamp(
-            ms / 1000, tz=timezone.utc
-        ).strftime("%Y-%m-%d")
+        price_date = datetime.fromtimestamp(ms / 1000, tz=UTC).strftime("%Y-%m-%d")
 
         cur.execute(
             """
@@ -48,8 +50,14 @@ def save_eth_prices(conn, payload):
               market_cap_usd = excluded.market_cap_usd,
               fetched_at = excluded.fetched_at
             """,
-            (1, price_date, close_usd, volumes.get(
-                ms), market_caps.get(ms), fetched_at),
+            (
+                1,
+                price_date,
+                close_usd,
+                volumes.get(ms),
+                market_caps.get(ms),
+                fetched_at,
+            ),
         )
         rows_written += 1
 
