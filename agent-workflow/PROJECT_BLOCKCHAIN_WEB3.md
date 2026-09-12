@@ -1,28 +1,23 @@
 # Project Handoff — Blockchain and Web3 Lab
 
 > **Repository:** `https://github.com/Ash31393/Blocky`  
-> **Status:** Active repository; blockchain engineering direction plus learning analytics  
-> **Last repository inspection:** 2026-09-03; `main`, `dev`, `feature/analytics-pivot`, and `docs/agent-handoff` visible  
-> **Read first:** `../AGENT_INSTRUCTIONS.md` and `../AGENT_HANDOFF.md`
+> **Status:** Active repository; crypto analytics ETL in progress + Web3 curriculum planned  
+> **Last repository inspection:** 2026-09-12 (post PR #2 on `dev`)  
+> **Read first:** `../CODING_STUDY_GUIDE_HANDOFF.md` (Part I) and `PROJECT_HANDOFF.md`
 
-## Current learning route — 2026-09-09
+## Current learning route — 2026-09-12
 
-**Language status:** User says stack locked; exact primary ledger language not captured here.
+**Language status:** User has said stack is locked in conversation history; exact primary toy-ledger language is still **not recorded** in-repo. Recover from user confirmation before starting ledger code.
 
-**Responsibilities:** Preserve recorded Python analytics, SQLite and Tableau. Solidity remains a previously proposed contract-learning option, not proof of a final locked allocation. Recover the selected ledger language from current project instructions instead of choosing it anew.
+**Responsibilities:** Preserve Python analytics (CoinGecko → SQLite). Learning-platform seed/Tableau-on-`learning.db` is archived. Solidity remains a proposed later contract option, not proof of a locked allocation.
 
-**Tool and database exposure:** Existing BI tools; Foundry/Hardhat comparison where compatible with the locked stack, local chain, RPC clients, debugger, static analysis, Docker Desktop for isolated local-chain/indexer experiments.
+**Tool and database exposure:** SQLite + DB Browser + Tableau (as previously used); `uv` + `.venv` + Ruff installed locally; Foundry/Hardhat comparison later for contracts; Docker Desktop is a staged candidate elsewhere in the ecosystem (explicit for F1), not required for current ETL.
 
-**Route checkpoint:** Continue the recorded analytics checkpoint after verifying actual state, then follow the already selected blockchain language route. This is a planned next step, not evidence of completion. Inspect the actual repo/environment before implementing.
+**Route checkpoint:** Analytics ETL first fetch **verified**. Next product/docs cleanup, then Web3 sequence step 1 (toy hashed ledger) after language confirmation.
 
 ### Shared learning policy
 
-Breadth is intentional: no fixed cap on languages, databases, IDEs, apps, extensions or infrastructure. Two languages is a starting pattern, not a ceiling. Sequence concrete experiments; do not remove a useful learning branch solely to simplify maintenance. Consolidation can be reviewed later. Keep existing locked stacks intact. Distinguish planned/proposed, installed, implemented and verified states.
-
-The user normally types application code and commands; explain syntax, purpose, expected results, architecture and debugging. Teach GUI and CLI views when useful. Maintain Git branches/PRs, meaningful checks, source provenance, and a dated next step. Choose new databases for meaningful exposure where appropriate; do not override an already selected database to satisfy a novelty quota. Docker Desktop is explicitly selected for F1; its use elsewhere is a staged candidate and must respect existing setup decisions.
-
-Read [master handoff](../AGENT_HANDOFF.md) and [agent instructions](../AGENT_INSTRUCTIONS.md) for the full route and tool policy. Cross-language integration starts with a small contract and independent run commands; additional runtimes do not require premature microservices.
-
+Breadth is intentional. Sequence experiments; keep locked stacks intact. Distinguish planned/proposed, installed, implemented, and verified. User types code/commands by default; agents teach and maintain `agent-workflow/` documentation under the standing exception.
 
 ## Mission
 
@@ -36,14 +31,14 @@ Learn blockchain fundamentals, smart contracts, wallets, tokens, NFTs, marketpla
 - Never encourage meaningful funds in experimental code.
 - Security is part of every milestone.
 
-## Verified Blocky State
+## Verified Blocky State (2026-09-12)
 
-- Commit `7b660df` was the public `main`/`dev`/`feature/analytics-pivot` tip during inspection; `docs/agent-handoff` was one commit ahead at `a7a6389`.
-- The repository contains Python ETL/archive scripts, runbooks, a `package.json`, and a documented SQLite learning database/data model.
-- Documented tables include users, modules, lessons, checkpoints, submissions, and events; BI views include completion funnel and error hotspots.
-- Tableau is documented as connected to the SQLite database through ODBC.
-- The next documented analytics task is adding realistic submission data, refreshing Tableau, completing two visualizations and a dashboard, and recording insights.
-- `lint`, `test`, and `format` npm scripts are placeholders. They must not be treated as quality gates; replace them with real tooling when the matching source code is introduced.
+- `dev` includes merge commits for PR #1 (docs/agent-workflow) and PR #2 (crypto ETL + CI cache fix + Ruff tooling).
+- Active script: `data/etl/fetch_prices.py` with repo-relative `DB_PATH`.
+- Local DB: `data/sqlite/blocky_analytics.db` with `assets` + `price_daily`; ETH fetch produced ~30 daily rows (gitignored).
+- `data/archive/seed_submissions.py` remains archived; still has hardcoded foreign-machine path.
+- Node `lint`/`test`/`format` scripts remain placeholders — not real quality gates.
+- Living agent docs expanded under `agent-workflow/` per `CODING_STUDY_GUIDE_HANDOFF.md`.
 
 ## Suggested Sequence
 
@@ -55,32 +50,23 @@ Learn blockchain fundamentals, smart contracts, wallets, tokens, NFTs, marketpla
 6. Read-only block/transaction explorer
 7. Wallet connection and signing
 8. Educational token/NFT marketplace prototype
-9. Public on-chain data analysis with SQL/Python
+9. Public on-chain / market data analysis with SQL/Python ← **partially underway (prices)**
 10. DeFi mechanism simulations
-
-## Architecture and Concepts
-
-Hashing, Merkle structures, public/private keys, signatures, consensus, nodes, mempools, blocks, finality, gas, RPC, ABIs, wallets, custody, oracles, indexing, governance, and bridge risk.
-
-## Security Curriculum
-
-Key management, approvals, reentrancy, access control, unit/integer mistakes, oracle manipulation, MEV/front-running, upgradeability, bridge risk, dependency risk, testing, static analysis, and audit limitations.
-
-## Software Exposure
-
-Git, Foundry or Hardhat after comparison, local nodes, Solidity tooling, block explorers, wallet developer tools, Slither/static analysis, testnets, Python/SQL analytics, GraphQL/indexing concepts, and hardware-wallet principles later.
 
 ## Open Decisions
 
-Recover the already locked toy-ledger language from current instructions (missing from this snapshot), target chain for contract learning, how the analytics-learning track relates to blockchain modules, and first hub integration.
+- Record locked toy-ledger language
+- Target chain for contract learning
+- When to open release PR `dev` → `main`
+- First hub integration
 
 ## Next Action
 
-Finish and document the current SQLite/Tableau analytics milestone, then merge its focused branch through `dev` before continuing in the already selected toy-ledger implementation language.
+See `PROJECT_HANDOFF.md`. Short version: commit pending docs archival + study guide on a `docs/...` branch into `dev`, then confirm ledger language before step 1.
 
 ## Update Log
 
 - 2026-09-02: Initial project-specific handoff created.
-- 2026-09-03: Added verified `Blocky` repository state, branch evidence, Tableau/SQLite milestone, and placeholder-script warning.
-
-- 2026-09-09: Synchronized language responsibilities, broad software/database learning, container applicability, and next-step guidance with the master handoff.
+- 2026-09-03: Added verified repository state, Tableau/SQLite milestone notes.
+- 2026-09-09: Synchronized with master handoff learning policy.
+- 2026-09-12: Updated for PR #2 ETL verification, study guide intake, living agent-workflow records; corrected stale “finish Tableau submissions” next action.
