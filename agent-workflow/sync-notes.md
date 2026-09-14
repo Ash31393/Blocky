@@ -1,32 +1,38 @@
 # Sync notes — Blocky
 
-Last updated: 2026-09-12
+Last updated: 2026-09-14
 
 ## Machine / environment (observed)
 
 - OS: Windows 10
-- Shell: PowerShell (Starship prompt)
-- Python: 3.14.7 via `C:\Python314\python.exe`; project `.venv` created with `uv venv`
-- Package manager for Python env: `uv` 0.12.5; Ruff 0.16.6 installed into `.venv`
-- Node: present (package.json / CI use Node 20 on Actions)
-- Editor: Cursor; Prettier + Ruff extensions intended for format-on-save
+- Shell: PowerShell
+- Python: 3.14.x via `C:\Python314\python.exe`; project `.venv` via `uv` (when used)
+- Node: present (CI uses Node 20 on GitHub Actions)
+- Editor: Cursor
+- BI: Tableau Desktop + ODBC DSN `SQLite_Blocky_64` → `data/sqlite/blocky_analytics.db`
 
-## Git (observed after PR #2)
+## Git (observed 2026-09-14)
 
-- Branch: `dev` @ `ac32d4a` (Merge pull request #2 from Ash31393/feature/crypto-etl)
-- Tracking: `origin/dev`
-- `main` still at older tip (`7b660df` era pivot) relative to `dev` merges — release PR not done
-- Local feature branches may still exist: `feature/crypto-etl`, `docs/agent-handoff`
+- **Current tip for integration work:** `dev` @ `f0cacdc` = `origin/dev`
+- **Working tree:** clean (before user commits agent-workflow session docs)
+- **`main` / `origin/main`:** @ `7b660df` — **8 commits behind `dev`**
+- **Stale local branches (safe to keep):** `feature/analytics-pivot` @ `7b660df` (already in `dev` history)
+- **Remote:** https://github.com/Ash31393/Blocky.git
 
-## Pending local changes (not committed)
+## Quick sync commands
 
-- Deleted tracked: `docs/runbooks/phase-1-data-and-analytics-guide.md`, `project-living-brief.html`, `project-living-brief.pdf`, root `requirements.txt`
-- Untracked: `oldInstructions/requirements.txt`, `oldInstructions/runbooks/`, `CODING_STUDY_GUIDE_HANDOFF.md`
-- New/updated under `agent-workflow/` living records (this documentation pass) — uncommitted until user authorizes Git
+```powershell
+cd C:\Users\Ashin\blocky
+git fetch origin
+git status
+git log --oneline HEAD..origin/dev    # need pull?
+git log --oneline origin/dev..HEAD    # need push?
+git log --oneline main..dev           # release gap
+```
 
 ## Resume instructions
 
-1. `git switch dev` && `git pull --ff-only origin dev`
-2. Activate venv: `.\.venv\Scripts\Activate.ps1`
-3. Read `agent-workflow/PROJECT_HANDOFF.md`
-4. Decide: commit docs archival + study guide + agent-workflow living records on a `docs/...` branch, PR → `dev`
+1. `git switch dev` && `git pull origin dev`
+2. Read `agent-workflow/PROJECT_HANDOFF.md`
+3. Start `feature/tableau-analytics` for Tableau + `init_schema.sql`
+4. Optional venv: `.\.venv\Scripts\Activate.ps1`
