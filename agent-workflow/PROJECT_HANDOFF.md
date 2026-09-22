@@ -1,21 +1,21 @@
 # Project Handoff — Blocky (living)
 
 > **Repository:** https://github.com/Ash31393/Blocky  
-> **Last updated:** 2026-09-14  
-> **Branch observed:** local `dev` @ `f0cacdc`, matching `origin/dev`  
+> **Last updated:** 2026-09-22  
+> **Branch observed:** local `feature/etl-schema-init` from `dev` @ `ed6915e` (= `origin/dev`)  
 > **Governing instructions:** repo-root `CODING_STUDY_GUIDE_HANDOFF.md` (Part I) + this folder
 
 ## Current objective
 
-Finish **crypto analytics BI** (Tableau line chart + optional schema SQL in repo), then resume **Web3 curriculum** (toy hashed ledger — language not locked in-repo).
+Add reproducible DB schema init (`data/etl/init_schema.py` and/or SQL), keep Tableau price charting moving, then resume Web3 curriculum (toy hashed ledger — language not locked in-repo).
 
 ## Last completed step (verified)
 
-- Study guide + living `agent-workflow/` merged to `dev` (`7c617bc`, `f0cacdc`); runbooks archived under `oldInstructions/runbooks/`.
+- Study guide + living `agent-workflow/` on `dev` (`7c617bc` … `ed6915e`); runbooks under `oldInstructions/runbooks/`.
 - PR #2 on `dev`: repo-relative `fetch_prices.py`, Ruff/`pyproject.toml`, CI npm-cache fix.
 - User ran ETL successfully (`ETH: wrote ~31 rows` into `price_daily`).
-- Tableau ODBC connected to `blocky_analytics.db`; `assets` + `price_daily` visible in data source (line chart deferred).
-- Git: `dev` synced with GitHub; user practiced `git log` ahead/behind checks (`HEAD..origin/dev`, `main..dev`).
+- Tableau ODBC connected to `blocky_analytics.db`; `assets` + `price_daily` visible (line chart still deferred).
+- 2026-09-22: pulled `dev` to `ed6915e`; created `feature/etl-schema-init`; resolved stash conflicts in this handoff.
 
 ## Confirmed state
 
@@ -23,11 +23,11 @@ Finish **crypto analytics BI** (Tableau line chart + optional schema SQL in repo
 | --- | --- |
 | Git flow | `feature/*` or `docs/*` → PR → `dev` → later release PR → `main` |
 | Active analytics DB | `data/sqlite/blocky_analytics.db` (gitignored); tables `assets`, `price_daily` |
-| `dev` vs GitHub | In sync at `f0cacdc` |
-| `main` | Still **8 commits behind `dev`** — no release PR yet |
+| `dev` vs GitHub | In sync at `ed6915e` before feature branch |
+| `main` | Still behind `dev` — no release PR yet |
 | Node CI | Runs; npm scripts still placeholders |
-| Tableau | Connected; **chart + saved workbook not finished** |
-| Schema in repo | **No** `init_schema.sql` / `init_schema.py` yet |
+| Tableau | Connected; chart + saved workbook not finished |
+| Schema in repo | **No** `init_schema.py` / `init_schema.sql` yet — this branch’s job |
 
 ## Blockers / unknowns
 
@@ -36,16 +36,15 @@ Finish **crypto analytics BI** (Tableau line chart + optional schema SQL in repo
 - Pyright/pytest not in project venv yet.
 - CoinGecko may be blocked on some networks (SSL); user had success when network allowed.
 
-## Exact next action (next session)
+## Exact next action
 
-1. `git switch dev` && `git pull origin dev`
-2. `git switch -c feature/tableau-analytics`
-3. Run `py data\etl\fetch_prices.py`; confirm row counts in DB Browser
-4. Create `v_price_trends` view (if missing); add `data/sqlite/init_schema.sql` and commit on feature branch
-5. **Tableau:** line chart from `v_price_trends`, save workbook, push branch, PR → `dev`
+1. Stay on `feature/etl-schema-init`; mark conflict resolution resolved (`git add` the two files; `git stash drop` if stash remains).
+2. Add `data/etl/init_schema.py` (create `assets` + `price_daily`, seed ETH); run it; confirm with a SELECT.
+3. Optionally add `v_price_trends` view for Tableau.
+4. Commit, push, PR → `dev`; then Tableau line chart on a follow-up branch if preferred.
 
 ## Do not change without discussion
 
 - Permission boundary in `CODING_STUDY_GUIDE_HANDOFF.md` Part I
 - Git `feature → dev → main` flow
-- Keeping SQLite analytics DB gitignored
+- Keeping SQLite analytics DB under `data/sqlite/` gitignored
