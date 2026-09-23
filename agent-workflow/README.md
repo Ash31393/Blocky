@@ -5,7 +5,7 @@ Living project documentation for Blocky. Shared across agents and machines. Do n
 ## Read order (Blocky)
 
 1. Repo-root `CODING_STUDY_GUIDE_HANDOFF.md` — Part I permission boundary + Part II ecosystem context (as needed)
-2. `PROJECT_HANDOFF.md` — current objective, verified state, exact next action
+2. `PROJECT_HANDOFF.md` — **Agent style (guided learning)**, objective, verified state, exact next action
 3. `PROJECT_BLOCKCHAIN_WEB3.md` — domain curriculum and longer Web3 route
 4. `PROJECT_STRUCTURE.md` — map of what exists in this repo (do not reorganize the app to match a template)
 5. `sync-notes.md` — machine/branch/pending-change resume notes
@@ -48,5 +48,5 @@ agent-workflow/
 | --- | --- |
 | `CODING_STUDY_GUIDE_HANDOFF.md` | Ultimate coding study guide + agent operating rules (2026-09-12) |
 | `oldInstructions/` | Archived prior handoffs/runbooks for review |
-| `pyproject.toml` | Ruff config |
+| `pyproject.toml` / `uv.lock` | Python deps via uv; Ruff in dev group |
 | `.vscode/settings.json` | Prettier + Ruff format-on-save |

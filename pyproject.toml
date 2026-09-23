@@ -1,3 +1,15 @@
+[project]
+name = "blocky"
+version = "0.1.0"
+description = "Crypto analytics ETL and Web3 learning lab"
+requires-python = ">=3.11"
+dependencies = []
+# ETL (data/etl) uses stdlib only: sqlite3, json, urllib, datetime.
+# Add runtime deps with: uv add <package>
+
+[dependency-groups]
+dev = ["ruff>=0.8.0"]
+
 [tool.ruff]
 target-version = "py311"
 line-length = 88
