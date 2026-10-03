@@ -1,8 +1,8 @@
 # Project Handoff — Blocky (living)
 
 > **Repository:** https://github.com/Ash31393/Blocky  
-> **Last updated:** 2026-09-25  
-> **Branch observed:** local `dev` @ `f598113` (confirm still current)  
+> **Last updated:** 2026-10-02  
+> **Branch observed:** Tableau docs PR merged to `dev` (user confirmed); pull to confirm tip  
 > **Governing instructions:** repo-root `CODING_STUDY_GUIDE_HANDOFF.md` (Part I) + this folder
 
 ## Agent style (required — do not skip)
@@ -16,21 +16,21 @@
 
 ## Current objective
 
-Save the Tableau workbook to the repo (or a chosen path), optionally tidy the date axis, then either multi-asset ETL or Web3 toy ledger.
+Start **Web3 curriculum step 1**: toy append-only hashed ledger (record language first — recommend Python). Optional parallel: BTC in ETL.
 
 ## Last completed step (verified)
 
-- PR #4 on `dev`: `init_schema.py`, `uv.lock`, handoffs.
-- SQLite ODBC connected as **BlockAnalytics**; view **`v_price_trends`**.
-- **Tableau Sheet 1:** line chart `Price Date` × `SUM(Close Usd)`, Marks = Line, Symbol on Detail; ~45 marks, dates ~2026-08-12 to 2026-09-10, close ~1900→2500. User showed working chart 2026-09-25.
-- Workbook save path not yet confirmed in-repo.
+- Analytics pipeline: CoinGecko → SQLite (`init_schema.py`, `fetch_prices.py`) → `v_price_trends`.
+- Tableau ETH line chart; workbook at `data/tableau/eth_price_trends.twbx`; docs PR merged to `dev` (user 2026-10-02).
+- Git flow practiced: feature/docs → PR → `dev`; `gh pr create` used.
 
 ## Exact next action
 
-1. **File → Save As** workbook (suggested): `data/tableau/eth_price_trends.twbx` (create folder if needed). Note: `.twbx` may be large; decide whether to gitignore or commit.
-2. Optional polish: change **Price Date** type to **Date**, use **Continuous** on Columns; move **Symbol** to **Color**.
-3. Optional: commit handoff update on `docs/tableau-chart` → PR → `dev`.
-4. Next product slice: BTC in ETL **or** record toy-ledger language + `labs/toy-ledger/`.
+1. `git switch dev` && `git pull --ff-only origin dev` && `git log --oneline -3`
+2. **Choose track:**
+   - **B (recommended):** confirm toy-ledger language = Python; `git switch -c feature/toy-ledger`; create `labs/toy-ledger/`
+   - **A:** `git switch -c feature/etl-btc`; extend schema/ETL for Bitcoin
+3. Optional later: release PR `dev` → `main` to snapshot analytics milestone
 
 ## Do not change without discussion
 
