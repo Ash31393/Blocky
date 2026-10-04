@@ -1,39 +1,30 @@
 # Project Handoff — Blocky (living)
 
 > **Repository:** https://github.com/Ash31393/Blocky  
-> **Last updated:** 2026-09-25  
-> **Branch observed:** local `dev` @ `f598113` (confirm still current)  
+> **Last updated:** 2026-10-04  
+> **Branch observed:** user finished toy-ledger step 1 PR (confirm merge + pull)  
 > **Governing instructions:** repo-root `CODING_STUDY_GUIDE_HANDOFF.md` (Part I) + this folder
 
 ## Agent style (required — do not skip)
 
 **Guided learning is the default.** The user runs commands and writes code; the agent teaches, explains, checks, and debugs.
 
-- Give **one next step at a time**, with **why** and **expected output**.
-- Do **not** silently implement whole features unless the user asks for direct implementation.
-- Do **not** commit or push unless the user asks.
-- Documentation under `agent-workflow/` may be updated without re-asking (factual records only).
-
 ## Current objective
 
-Save the Tableau workbook to the repo (or a chosen path), optionally tidy the date axis, then either multi-asset ETL or Web3 toy ledger.
+After step 1 is on `dev`: add a `Ledger` class (`append`, `is_valid`) on `feature/toy-ledger` or a follow-up branch; then digital signatures (curriculum step 2).
 
 ## Last completed step (verified)
 
-- PR #4 on `dev`: `init_schema.py`, `uv.lock`, handoffs.
-- SQLite ODBC connected as **BlockAnalytics**; view **`v_price_trends`**.
-- **Tableau Sheet 1:** line chart `Price Date` × `SUM(Close Usd)`, Marks = Line, Symbol on Detail; ~45 marks, dates ~2026-08-12 to 2026-09-10, close ~1900→2500. User showed working chart 2026-09-25.
-- Workbook save path not yet confirmed in-repo.
+- `labs/toy-ledger/ledger.py`: genesis + chained block, `valid: True`, `valid after tamper: False`.
+- User completed commit/PR flow for step 1 (2026-10-04).
 
 ## Exact next action
 
-1. **File → Save As** workbook (suggested): `data/tableau/eth_price_trends.twbx` (create folder if needed). Note: `.twbx` may be large; decide whether to gitignore or commit.
-2. Optional polish: change **Price Date** type to **Date**, use **Continuous** on Columns; move **Symbol** to **Color**.
-3. Optional: commit handoff update on `docs/tableau-chart` → PR → `dev`.
-4. Next product slice: BTC in ETL **or** record toy-ledger language + `labs/toy-ledger/`.
+1. If not merged yet: merge PR into `dev`. Then `git switch dev && git pull --ff-only origin dev`.
+2. `git switch -c feature/toy-ledger-wrap` (or continue on feature branch if still open).
+3. Add `Ledger` class wrapping the chain list.
+4. Later: signatures / keypairs (curriculum step 2).
 
 ## Do not change without discussion
 
-- Permission boundary in `CODING_STUDY_GUIDE_HANDOFF.md` Part I
-- Git `feature → dev → main` flow
-- Keeping `data/sqlite/*.db` gitignored
+- Permission boundary; Git `feature → dev → main`; gitignore `data/sqlite/*.db`
