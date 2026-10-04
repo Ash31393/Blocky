@@ -2,7 +2,7 @@
 
 > **Repository:** https://github.com/Ash31393/Blocky  
 > **Last updated:** 2026-10-04  
-> **Branch observed:** `feature/toy-ledger` with `labs/toy-ledger/ledger.py` (user working)  
+> **Branch observed:** user finished toy-ledger step 1 PR (confirm merge + pull)  
 > **Governing instructions:** repo-root `CODING_STUDY_GUIDE_HANDOFF.md` (Part I) + this folder
 
 ## Agent style (required — do not skip)
@@ -11,21 +11,20 @@
 
 ## Current objective
 
-Land toy hashed ledger step 1 on `dev`, then add a small `Ledger` wrapper (append + validate) and record Python as the ledger language in an ADR.
+After step 1 is on `dev`: add a `Ledger` class (`append`, `is_valid`) on `feature/toy-ledger` or a follow-up branch; then digital signatures (curriculum step 2).
 
 ## Last completed step (verified)
 
-- Analytics + Tableau ETH chart on `dev`.
-- User built `labs/toy-ledger/ledger.py`: `Block`, `make_block`, `chain_is_valid`, genesis + second block, tamper demo; ran genesis successfully; learned class/instance/`self`.
+- `labs/toy-ledger/ledger.py`: genesis + chained block, `valid: True`, `valid after tamper: False`.
+- User completed commit/PR flow for step 1 (2026-10-04).
 
 ## Exact next action
 
-1. Confirm full run shows `valid: True` then `valid after tamper: False`.
-2. Commit on `feature/toy-ledger`, push, `gh pr create --base dev`.
-3. After merge: add `Ledger` class (`append`, `is_valid`) on a follow-up commit/PR.
-4. Later curriculum: digital signatures (step 2).
+1. If not merged yet: merge PR into `dev`. Then `git switch dev && git pull --ff-only origin dev`.
+2. `git switch -c feature/toy-ledger-wrap` (or continue on feature branch if still open).
+3. Add `Ledger` class wrapping the chain list.
+4. Later: signatures / keypairs (curriculum step 2).
 
 ## Do not change without discussion
 
-- Permission boundary in `CODING_STUDY_GUIDE_HANDOFF.md` Part I
-- Git `feature → dev → main` flow
+- Permission boundary; Git `feature → dev → main`; gitignore `data/sqlite/*.db`
