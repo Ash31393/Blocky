@@ -1,39 +1,31 @@
 # Project Handoff — Blocky (living)
 
 > **Repository:** https://github.com/Ash31393/Blocky  
-> **Last updated:** 2026-10-02  
-> **Branch observed:** Tableau docs PR merged to `dev` (user confirmed); pull to confirm tip  
+> **Last updated:** 2026-10-04  
+> **Branch observed:** `feature/toy-ledger` with `labs/toy-ledger/ledger.py` (user working)  
 > **Governing instructions:** repo-root `CODING_STUDY_GUIDE_HANDOFF.md` (Part I) + this folder
 
 ## Agent style (required — do not skip)
 
 **Guided learning is the default.** The user runs commands and writes code; the agent teaches, explains, checks, and debugs.
 
-- Give **one next step at a time**, with **why** and **expected output**.
-- Do **not** silently implement whole features unless the user asks for direct implementation.
-- Do **not** commit or push unless the user asks.
-- Documentation under `agent-workflow/` may be updated without re-asking (factual records only).
-
 ## Current objective
 
-Start **Web3 curriculum step 1**: toy append-only hashed ledger (record language first — recommend Python). Optional parallel: BTC in ETL.
+Land toy hashed ledger step 1 on `dev`, then add a small `Ledger` wrapper (append + validate) and record Python as the ledger language in an ADR.
 
 ## Last completed step (verified)
 
-- Analytics pipeline: CoinGecko → SQLite (`init_schema.py`, `fetch_prices.py`) → `v_price_trends`.
-- Tableau ETH line chart; workbook at `data/tableau/eth_price_trends.twbx`; docs PR merged to `dev` (user 2026-10-02).
-- Git flow practiced: feature/docs → PR → `dev`; `gh pr create` used.
+- Analytics + Tableau ETH chart on `dev`.
+- User built `labs/toy-ledger/ledger.py`: `Block`, `make_block`, `chain_is_valid`, genesis + second block, tamper demo; ran genesis successfully; learned class/instance/`self`.
 
 ## Exact next action
 
-1. `git switch dev` && `git pull --ff-only origin dev` && `git log --oneline -3`
-2. **Choose track:**
-   - **B (recommended):** confirm toy-ledger language = Python; `git switch -c feature/toy-ledger`; create `labs/toy-ledger/`
-   - **A:** `git switch -c feature/etl-btc`; extend schema/ETL for Bitcoin
-3. Optional later: release PR `dev` → `main` to snapshot analytics milestone
+1. Confirm full run shows `valid: True` then `valid after tamper: False`.
+2. Commit on `feature/toy-ledger`, push, `gh pr create --base dev`.
+3. After merge: add `Ledger` class (`append`, `is_valid`) on a follow-up commit/PR.
+4. Later curriculum: digital signatures (step 2).
 
 ## Do not change without discussion
 
 - Permission boundary in `CODING_STUDY_GUIDE_HANDOFF.md` Part I
 - Git `feature → dev → main` flow
-- Keeping `data/sqlite/*.db` gitignored

@@ -28,10 +28,35 @@ class Block:
         return sha256_hex(payload)
 
 
+def make_block(index: int, data: str, prev_hash: str) -> Block:
+    block = Block(index=index, data=data, prev_hash=prev_hash)
+    block.block_hash = block.compute_hash()
+    return block
+
+
+def chain_is_valid(chain: list[Block]) -> bool:
+    for i, block in enumerate(chain):
+        if block.block_hash != block.compute_hash():
+            return False  # contents were tampered with
+        if i == 0:
+            continue
+        if block.prev_hash != chain[i - 1].block_hash:
+            return False  # broken link to previous block
+    return True
+
+
 def main() -> None:
-    genesis = Block(index=0, data="genesis", prev_hash="0" * 64)
-    genesis.block_hash = genesis.compute_hash()
-    print(genesis)
+    genesis = make_block(0, "genesis", "0" * 64)
+    second = make_block(1, "alice pays bob 5", genesis.block_hash)
+    chain = [genesis, second]
+
+    for block in chain:
+        print(block)
+    print("valid:", chain_is_valid(chain))
+
+    # Tamper demo: change data but leave stored hash alone
+    second.data = "alice pays bob 500"
+    print("valid after tamper:", chain_is_valid(chain))
 
 
 if __name__ == "__main__":
