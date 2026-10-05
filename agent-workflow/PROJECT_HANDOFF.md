@@ -1,8 +1,8 @@
 # Project Handoff — Blocky (living)
 
 > **Repository:** https://github.com/Ash31393/Blocky  
-> **Last updated:** 2026-09-25  
-> **Branch observed:** local `dev` @ `f598113` (confirm still current)  
+> **Last updated:** 2026-10-05  
+> **Branch observed:** local `feature/etl-btc` @ `845da7e` (same commit as `origin/dev`). Live status is `agent-workflow/AGENT_HANDOFF.md`.  
 > **Governing instructions:** repo-root `CODING_STUDY_GUIDE_HANDOFF.md` (Part I) + this folder
 
 ## Agent style (required — do not skip)
@@ -16,21 +16,29 @@
 
 ## Current objective
 
-Save the Tableau workbook to the repo (or a chosen path), optionally tidy the date axis, then either multi-asset ETL or Web3 toy ledger.
+Add BTC to the analytics ETL. Toy-ledger step 1 already exists on another branch; it is recorded here and is not the current slice.
 
 ## Last completed step (verified)
 
-- PR #4 on `dev`: `init_schema.py`, `uv.lock`, handoffs.
-- SQLite ODBC connected as **BlockAnalytics**; view **`v_price_trends`**.
-- **Tableau Sheet 1:** line chart `Price Date` × `SUM(Close Usd)`, Marks = Line, Symbol on Detail; ~45 marks, dates ~2026-08-12 to 2026-09-10, close ~1900→2500. User showed working chart 2026-09-25.
-- Workbook save path not yet confirmed in-repo.
+- Local `dev` fast-forwarded `ed6915e` → `845da7e` and matches `origin/dev` (2026-10-05).
+- User chose BTC in the ETL (2026-10-05).
+- Toy ledger recovered from GitHub, not from local `dev`: `origin/feature/toy-ledger` @ `ab37c81`, open PR #6 → `dev` (https://github.com/Ash31393/Blocky/pull/6). Python file `labs/toy-ledger/ledger.py` (`133db34`): `Block`, `make_block`, `chain_is_valid`, tamper demo. That file is not in the local `dev` working tree. Branch handoff (2026-10-04) records `valid: True` and `valid after tamper: False`; this session did not re-run the script.
+- Local DB has assets ETH id 1 and BTC id 2. After an unauthorized agent run of `fetch_prices.py` (2026-10-05), `price_daily` held 72 ETH dates and 30 BTC dates. Source files were restored afterward. Committed `init_schema.py` still seeds ETH only.
+
+## Confirmed state
+
+| Item | Status |
+| --- | --- |
+| Local `dev` / `origin/dev` | @ `845da7e` |
+| `main` / `origin/main` | @ `7b660df` (behind `dev`; no release PR) |
+| Analytics DB | `data/sqlite/blocky_analytics.db` (gitignored) |
+| Tableau workbook | `data/tableau/eth_price_trends.twbx` committed on `dev` |
+| uv | `pyproject.toml` + `uv.lock` committed on `dev` |
+| Toy ledger | Python step 1 on `origin/feature/toy-ledger` @ `ab37c81`; PR #6 open, not merged |
 
 ## Exact next action
 
-1. **File → Save As** workbook (suggested): `data/tableau/eth_price_trends.twbx` (create folder if needed). Note: `.twbx` may be large; decide whether to gitignore or commit.
-2. Optional polish: change **Price Date** type to **Date**, use **Continuous** on Columns; move **Symbol** to **Color**.
-3. Optional: commit handoff update on `docs/tableau-chart` → PR → `dev`.
-4. Next product slice: BTC in ETL **or** record toy-ledger language + `labs/toy-ledger/`.
+See `agent-workflow/AGENT_HANDOFF.md`. URL lesson verified (`ETH: wrote 31 rows`). Next: pass `asset_id` and fetch Bitcoin as id 2.
 
 ## Do not change without discussion
 

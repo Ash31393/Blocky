@@ -1,6 +1,6 @@
 # Sync notes — Blocky
 
-Last updated: 2026-09-23
+Last updated: 2026-10-05
 
 ## Machine / environment (observed)
 
@@ -14,12 +14,13 @@ Last updated: 2026-09-23
 - Editor: Cursor (Prettier + Ruff format-on-save)
 - BI: Tableau Desktop + ODBC → `data/sqlite/blocky_analytics.db` (DSN e.g. `SQLite_Blocky_64`)
 
-## Git (observed 2026-09-23)
+## Git (observed 2026-10-05)
 
-- **Current branch:** `feature/etl-schema-init` @ `74ed559` (tracks `origin/feature/etl-schema-init`)
-- **`dev` / `origin/dev`:** @ `ed6915e` (no `init_schema.py` until merge)
+- **Current branch:** `dev` @ `845da7e` (tracks `origin/dev`, fast-forwarded from `ed6915e`)
 - **`main` / `origin/main`:** @ `7b660df` (behind `dev`)
-- **Working tree:** modified `pyproject.toml`, untracked `uv.lock` (commit when user asks)
+- **`feature/etl-schema-init`:** still exists locally @ `ce70649`; already contained in `dev` via PR #4
+- **`origin/feature/toy-ledger`:** @ `ab37c81` (3 commits ahead of `dev`). Open PR #6. Not checked out locally. File `labs/toy-ledger/ledger.py` is on that branch only.
+- **Working tree:** agent-workflow doc refresh (toy-ledger recovery + BTC slice). Commit only if the user asks.
 - **Remote:** https://github.com/Ash31393/Blocky.git
 
 ## Quick sync commands
@@ -49,9 +50,8 @@ Without activating: `uv run py data\etl\fetch_prices.py`
 ## Resume instructions
 
 1. Read `agent-workflow/PROJECT_HANDOFF.md` — **Agent style** + **Exact next action**
-2. Merge or continue PR for `feature/etl-schema-init` → `dev`
-3. Tableau: chart from `v_price_trends`
-4. Commit `pyproject.toml` + `uv.lock` when ready
+2. Local `dev` already matches `origin/dev` @ `845da7e` (schema, uv lock, Tableau workbook)
+3. User chose BTC in the ETL (2026-10-05). Toy-ledger step 1 is already on open PR #6; do not treat it as unstarted.
 
 ## Context / agent hygiene
 

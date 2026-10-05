@@ -8,14 +8,15 @@ from pathlib import Path
 DB_PATH = (
     Path(__file__).resolve().parents[2] / "data" / "sqlite" / "blocky_analytics.db"
 )
-API_URL = (
-    "https://api.coingecko.com/api/v3/coins/ethereum/market_chart"
+API_TEMPLATE = (
+    "https://api.coingecko.com/api/v3/coins/{coingecko_id}/market_chart"
     "?vs_currency=usd&days=30&interval=daily"
 )
 
 
-def fetch_prices():
-    with urllib.request.urlopen(API_URL) as response:
+def fetch_prices(coingecko_id):
+    url = API_TEMPLATE.format(coingecko_id=coingecko_id)
+    with urllib.request.urlopen(url) as response:
         data = json.loads(response.read())
         return data
 
@@ -68,7 +69,7 @@ def save_eth_prices(conn, payload):
 def main():
     conn = connect()
     try:
-        payload = fetch_prices()
+        payload = fetch_prices("ethereum")
         count = save_eth_prices(conn, payload)
         print(f"ETH: wrote {count} rows")
     finally:

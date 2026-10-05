@@ -7,7 +7,7 @@
 
 ## Current learning route — 2026-09-12
 
-**Language status:** User has said stack is locked in conversation history; exact primary toy-ledger language is still **not recorded** in-repo. Recover from user confirmation before starting ledger code.
+**Language status:** Toy-ledger step 1 is Python. Code is `labs/toy-ledger/ledger.py` on `origin/feature/toy-ledger` @ `133db34` (open PR #6, not on local `dev` as of 2026-10-05). See `decisions/ADR-0002-toy-ledger-python.md`.
 
 **Responsibilities:** Preserve Python analytics (CoinGecko → SQLite). Learning-platform seed/Tableau-on-`learning.db` is archived. Solidity remains a proposed later contract option, not proof of a locked allocation.
 
@@ -55,7 +55,7 @@ Learn blockchain fundamentals, smart contracts, wallets, tokens, NFTs, marketpla
 
 ## Open Decisions
 
-- Record locked toy-ledger language
+- Toy-ledger step 1 language is Python (ADR-0002). PR #6 is still open.
 - Target chain for contract learning
 - When to open release PR `dev` → `main`
 - First hub integration
@@ -70,3 +70,4 @@ See `PROJECT_HANDOFF.md`. Short version: commit pending docs archival + study gu
 - 2026-09-03: Added verified repository state, Tableau/SQLite milestone notes.
 - 2026-09-09: Synchronized with master handoff learning policy.
 - 2026-09-12: Updated for PR #2 ETL verification, study guide intake, living agent-workflow records; corrected stale “finish Tableau submissions” next action.
+- 2026-10-05: Recorded Python toy-ledger step 1 on `origin/feature/toy-ledger` / PR #6. It was missing from the `dev` handoff. Current slice is BTC in the ETL.

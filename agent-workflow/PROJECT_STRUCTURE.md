@@ -2,7 +2,7 @@
 
 Factual map of what exists. Do not reorganize the application to match a template.
 
-Last updated: 2026-09-23
+Last updated: 2026-10-05
 
 ## Top level
 
@@ -12,13 +12,15 @@ Last updated: 2026-09-23
 | `agent-workflow/` | Living agent docs, standards, checklists, templates |
 | `oldInstructions/` | Archived prior handoffs/runbooks/requirements (review only) |
 | `data/etl/` | Schema init (`init_schema.py`) + CoinGecko → SQLite ETL (`fetch_prices.py`) |
+| `labs/toy-ledger/ledger.py` | Python toy hashed ledger (step 1). On `origin/feature/toy-ledger` only until PR #6 merges; not in the local `dev` tree |
 | `data/archive/` | Archived learning-platform seed script |
 | `data/sqlite/` | Local DB files (`*.db` gitignored) |
+| `data/tableau/eth_price_trends.twbx` | Saved ETH line-chart workbook (committed on `dev` @ `845da7e`) |
 | `docs/runbooks/` | Previously held phase-1 briefs; locally deleted pending commit of move to `oldInstructions/runbooks/` |
 | `.github/workflows/ci.yml` | GitHub Actions Node lint/test placeholders |
 | `package.json` | Node project metadata; placeholder lint/test/format scripts |
 | `pyproject.toml` | Project metadata + uv dependencies; Ruff lint/format |
-| `uv.lock` | Locked dev deps for `uv sync` (commit with pyproject.toml) |
+| `uv.lock` | Locked dev deps for `uv sync` (committed on `dev`) |
 | `.vscode/settings.json` | Format on save: Prettier default, Ruff for Python |
 | `.venv/` | Local uv virtualenv (gitignored) |
 | `.gitignore` | Ignores `data/sqlite/*.db`, `.venv/`, `__pycache__/`, `*.pyc`, `.ruff_cache/` |
