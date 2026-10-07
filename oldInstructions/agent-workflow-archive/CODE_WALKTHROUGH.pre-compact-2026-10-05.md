@@ -1,9 +1,8 @@
 # Code Walkthrough
 
 Status: URL parameter applied and run by the user, 2026-10-05. Next change is **proposed/not yet applied**.  
-Location: `agent-workflow/CODE_WALKTHROUGH.md` (one of two live docs; see `AGENT_HANDOFF.md`).  
-Companion: `agent-workflow/AGENT_HANDOFF.md`.  
-Former templates/sessions archived under `oldInstructions/agent-workflow-archive/`.
+Location: `agent-workflow/CODE_WALKTHROUGH.md`.  
+Companion: `agent-workflow/AGENT_HANDOFF.md`.
 
 ## Coverage index
 
