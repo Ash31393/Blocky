@@ -3,14 +3,14 @@
 Companion to `AGENT_HANDOFF.md` / `AGENT_INSTRUCTIONS.md`.  
 Agent maintains this file. Label proposed vs applied. Record verification only from evidence.
 
-Status: 2026-10-07 — URL slug + `asset_id` in INSERT applied. `main` still ETH-only (**BTC call proposed**).
+Status: 2026-10-08 — ETH + BTC ETL **verified** (`ETH: wrote 31 rows`, `BTC: wrote 31 rows`). Optional rename `save_prices` still open.
 
 ## Coverage index
 
 | File | Snapshot | Coverage | Status |
 | --- | --- | --- | --- |
 | `data/etl/init_schema.py` | Working tree 2026-10-07 | Seed `SEED_SQL` (ETH+BTC) | Applied in file; earlier user run listed both assets |
-| `data/etl/fetch_prices.py` | Working tree 2026-10-07 | Full file; focus save + `main` | URL + `asset_id` applied; BTC in `main` pending |
+| `data/etl/fetch_prices.py` | Working tree 2026-10-08 | Full file; `main` ETH+BTC | Verified by user run |
 | `labs/toy-ledger/ledger.py` | Other branch / PR #6 | Not on `feature/etl-btc` | Deferred |
 
 Excluded from exhaustive coverage: `uv.lock`, Tableau `.twbx`, gitignored `.db`, archived docs under `oldInstructions/`.
@@ -77,39 +77,35 @@ Ensures parent dir exists, `sqlite3.connect`, `row_factory = sqlite3.Row`, retur
 
 **Design note:** Body is already generic; renaming to `save_prices` is cleanup so callers do not think the function is ETH-only.
 
-### `main()` — current vs proposed
-
-**Current (applied):**
+### `main()` — applied (run pending)
 
 ```python
-        payload = fetch_prices("ethereum")
-        count = save_eth_prices(conn, 1, payload)
-        print(f"ETH: wrote {count} rows")
-```
-
-**Proposed / not yet applied:**
-
-```python
+def main():
+    conn = connect()
+    try:
         eth_count = save_eth_prices(conn, 1, fetch_prices("ethereum"))
         print(f"ETH: wrote {eth_count} rows")
         btc_count = save_eth_prices(conn, 2, fetch_prices("bitcoin"))
         print(f"BTC: wrote {btc_count} rows")
+    finally:
+        conn.close()
 ```
 
-- Inner `fetch_prices(...)` runs first; result feeds save.
-- Id `2` must match the BTC seed in `init_schema.py`.
-- `try`/`finally` still closes the connection.
+- Both calls sit inside `try` so `finally` closes `conn` even if the second request fails.
+- Id `2` matches BTC seed in `init_schema.py`.
+- Lesson learned: code after `conn.close()` / outside `main` cannot use that connection.
 
 ### Verification
 
 | Check | Result |
 | --- | --- |
-| Earlier ETH run | `ETH: wrote 31 rows` (user) |
-| After BTC `main` edit | Not run yet — need both print lines |
+| `.\.venv\Scripts\python.exe data\etl\fetch_prices.py` | 2026-10-08 user: `ETH: wrote 31 rows` / `BTC: wrote 31 rows` |
+
+What that means: CoinGecko returned ~30 daily points per coin; each loop wrote/upserted a `price_daily` row for asset 1 then asset 2. Count is points visited, not “brand-new dates only.”
 
 ## Synchronization checklist
 
 - [x] `asset_id` in INSERT documented
-- [x] Full-file teaching notes for current ETL lesson
-- [ ] Update after user applies BTC `main` + pastes output
+- [x] BTC `main` verified by run output
 - [ ] Optional rename `save_prices` when user does it
+

@@ -28,7 +28,7 @@ def connect():
     return conn
 
 
-def save_eth_prices(conn, payload):
+def save_eth_prices(conn, asset_id, payload):
     prices = payload["prices"]
     volumes = {ms: v for ms, v in payload.get("total_volumes", [])}
     market_caps = {ms: m for ms, m in payload.get("market_caps", [])}
@@ -52,7 +52,7 @@ def save_eth_prices(conn, payload):
               fetched_at = excluded.fetched_at
             """,
             (
-                1,
+                asset_id,
                 price_date,
                 close_usd,
                 volumes.get(ms),
@@ -69,9 +69,10 @@ def save_eth_prices(conn, payload):
 def main():
     conn = connect()
     try:
-        payload = fetch_prices("ethereum")
-        count = save_eth_prices(conn, payload)
-        print(f"ETH: wrote {count} rows")
+        eth_count = save_eth_prices(conn, 1, fetch_prices("ethereum"))
+        print(f"ETH: wrote {eth_count} rows")
+        btc_count = save_eth_prices(conn, 2, fetch_prices("bitcoin"))
+        print(f"BTC: wrote {btc_count} rows")
     finally:
         conn.close()
 

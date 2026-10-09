@@ -50,30 +50,30 @@ Evidence-based only:
 | CoinGecko URL takes slug | **Implemented** (`API_TEMPLATE` + `fetch_prices(coingecko_id)`) | file read |
 | ETH fetch/save | **Verified earlier** | user paste: `ETH: wrote 31 rows` |
 | `asset_id` parameter used in INSERT | **Implemented** (line 55 = `asset_id`) | user edit + file read 2026-10-07 |
-| BTC fetch in `main` | **Not implemented** | `main` still only `ethereum` / id 1 |
-| Function rename `save_prices` | **Not done** | still named `save_eth_prices` |
+| BTC fetch in `main` | **Verified** | user output 2026-10-08: `ETH: wrote 31 rows` / `BTC: wrote 31 rows` |
+| Function rename `save_prices` | **Not done** (optional cleanup) | still named `save_eth_prices` |
 | Toy ledger on this branch | **Absent** | lives on `origin/feature/toy-ledger` / open PR #6 |
 | Docs compact commit | **Committed** | `70feb78` |
-| New 3-file workflow install | **In progress this session** | this handoff |
+| New 3-file workflow install | **Present in working tree** | `AGENT_INSTRUCTIONS` / `HANDOFF` / `WALKTHROUGH` |
 
-Uncommitted (as of migration inspect): modified `agent-workflow/*`, modified `data/etl/fetch_prices.py`, untracked numbered root instruction drops (to be archived).
+Uncommitted until you commit: ETL (`fetch_prices.py`, likely `init_schema.py`) + `agent-workflow/` + archive moves.
 
 ## Work in progress
 
-**Milestone:** add Bitcoin to the same ETL path as Ethereum.
+**Milestone:** add Bitcoin to the same ETL path as Ethereum — **verified 2026-10-08.**
 
-Done in code (not all re-verified this session):
+Done and verified:
 
 1. Seed BTC as `assets.id = 2`, slug `bitcoin`.
 2. Parameterize CoinGecko URL by slug.
-3. Pass `asset_id` into the save function and bind it in the INSERT tuple.
+3. Pass `asset_id` into save and bind it in the INSERT.
+4. `main` fetches/saves ETH (1) and BTC (2); output `ETH: wrote 31 rows` / `BTC: wrote 31 rows`.
 
-Still open:
+Still open (optional / next):
 
-1. Call save for Bitcoin (`asset_id` 2, slug `"bitcoin"`) from `main`.
-2. Optional rename `save_eth_prices` → `save_prices`.
-3. User re-run script and paste **both** ETH and BTC print lines.
-4. Then commit / PR when user wants.
+1. Optional rename `save_eth_prices` → `save_prices` (body already generic).
+2. Commit ETL + workflow docs on `feature/etl-btc`, then PR → `dev` when user wants.
+3. Later: merge toy-ledger PR #6; Tableau for BTC; release `dev` → `main`.
 
 ## Important decisions
 
@@ -86,10 +86,9 @@ Still open:
 
 ## Problems / blockers
 
-- None blocking the next step.
-- `main` still ETH-only, so BTC rows are not produced by the current script path.
-- Working tree has uncommitted ETL + workflow changes; not safely “done” until user commits after verification.
-- `CODING_STUDY_GUIDE_HANDOFF.md` at repo root is an older large instruction master; superseded for day-to-day agent ops by `agent-workflow/*` (left in place as study reference unless user asks to archive).
+- None for the BTC fetch path (verified).
+- Changes still local until you commit/push.
+- `CODING_STUDY_GUIDE_HANDOFF.md` at repo root is an older large instruction master; day-to-day ops use `agent-workflow/*` (left as study reference unless you ask to archive).
 
 ## Learning context
 
@@ -101,27 +100,22 @@ Still open:
 
 ## Exact next step
 
-**Open** `data/etl/fetch_prices.py`, function `main` (around lines 69–76).
+**Optional cleanup:** rename `save_eth_prices` → `save_prices` in the `def` line and both call sites in `main` (same body). Or skip and **commit** the BTC ETL + agent-workflow docs now.
 
-**Replace** the `try` body so it saves both assets (keep the current function name for now):
-
-```python
-        eth_count = save_eth_prices(conn, 1, fetch_prices("ethereum"))
-        print(f"ETH: wrote {eth_count} rows")
-        btc_count = save_eth_prices(conn, 2, fetch_prices("bitcoin"))
-        print(f"BTC: wrote {btc_count} rows")
-```
-
-**Then run** (from repo root, PowerShell):
+Suggested commit when ready (you run it):
 
 ```powershell
-.\.venv\Scripts\python.exe data\etl\fetch_prices.py
+git status
+git add data/etl/fetch_prices.py data/etl/init_schema.py agent-workflow/ oldInstructions/agent-workflow-archive/
+git commit -m "feat(etl): fetch and upsert BTC alongside ETH; compact agent-workflow"
+git push
 ```
 
-**Expect** two lines similar to `ETH: wrote N rows` and `BTC: wrote N rows`. Paste both. Do not assume success until that output appears.
+Adjust `git add` after you inspect `git status` — include only what belongs in this checkpoint.
 
 ### Latest learning checkpoint
 
-- Date: 2026-10-07.
-- Completed: `asset_id` in INSERT; line-by-line review of `fetch_prices.py`; workflow upgraded to 3-file system.
-- Waiting on: user edit to `main` + script output for ETH and BTC.
+- Date: 2026-10-08.
+- Verified: `.\.venv\Scripts\python.exe data\etl\fetch_prices.py` → `ETH: wrote 31 rows` and `BTC: wrote 31 rows`.
+- Concepts: parameter vs literal; try/finally scope; multi-asset `(slug, asset_id)` pairing.
+- Next: optional rename, then commit/push/PR when you want.
