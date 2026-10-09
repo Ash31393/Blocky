@@ -1,18 +1,25 @@
-# Archive note — agent-workflow compact (2026-10-05)
+# Archive note — agent-workflow
 
-On 2026-10-05 the live agent documentation was reduced to two files:
+**Do not treat this folder as current status.** Live docs are only:
 
+- `agent-workflow/AGENT_INSTRUCTIONS.md`
 - `agent-workflow/AGENT_HANDOFF.md`
 - `agent-workflow/CODE_WALKTHROUGH.md`
 
-Everything previously under `agent-workflow/` (except those two) was moved here. Repo-root `AGENT_HANDOFF.md` and `CODE_WALKTHROUGH.md` were moved here as:
+## 2026-10-07 — three-file system
+
+User replaced the compact two-file set with the newer trio. Root drops archived here:
+
+- `AGENT_INSTRUCTIONS.root-source-2026-10-07.md` (from `AGENT_INSTRUCTIONS(2).md`)
+- `AGENT_HANDOFF.root-source-2026-10-07.md` (from `AGENT_HANDOFF(3).md`)
+
+## 2026-10-05 — first compact
+
+Former multi-file `agent-workflow/` tree moved here. Also:
 
 - `AGENT_HANDOFF.root-source-2026-10-05.md`
 - `CODE_WALKTHROUGH.root-template-2026-10-05.md`
-
-Snapshots of the pre-compact live copies (with Blocky BTC lesson state) are:
-
 - `AGENT_HANDOFF.pre-compact-2026-10-05.md`
 - `CODE_WALKTHROUGH.pre-compact-2026-10-05.md`
 
-**Do not treat this folder as current status.** Use it only for history, ADRs, session logs, backlog ideas, and Web3 curriculum reference.
+Use this archive for history, ADRs, session logs, backlog ideas, and Web3 curriculum reference.
