@@ -3,7 +3,7 @@
 Companion to `AGENT_HANDOFF.md` / `AGENT_INSTRUCTIONS.md`.  
 Agent maintains this file. Label proposed vs applied. Record verification only from evidence.
 
-Status: 2026-10-08 — ETH + BTC ETL **verified** (`ETH: wrote 31 rows`, `BTC: wrote 31 rows`). Optional rename `save_prices` still open.
+Status: 2026-10-11 — ETH + BTC verified; rename to `save_prices` applied (user confirmed run). Commit of rename pending.
 
 ## Coverage index
 
@@ -63,7 +63,7 @@ Builds URL → `urlopen` → `json.loads` → returns dict. Parameter is the Coi
 
 Ensures parent dir exists, `sqlite3.connect`, `row_factory = sqlite3.Row`, returns connection.
 
-### `save_eth_prices(conn, asset_id, payload)` (name still ETH-specific)
+### `save_prices(conn, asset_id, payload)` (renamed from `save_eth_prices`)
 
 | Piece | Meaning |
 | --- | --- |
@@ -75,7 +75,7 @@ Ensures parent dir exists, `sqlite3.connect`, `row_factory = sqlite3.Row`, retur
 | Line 55 `asset_id` | **Applied** — first bound `?` is the caller’s id |
 | return `rows_written` | Loop count (points visited), not “new PK rows only” |
 
-**Design note:** Body is already generic; renaming to `save_prices` is cleanup so callers do not think the function is ETH-only.
+**Design note:** Rename is naming cleanup only — same parameters and SQL. Old name would imply ETH-only while BTC already uses it.
 
 ### `main()` — applied (run pending)
 
@@ -83,9 +83,9 @@ Ensures parent dir exists, `sqlite3.connect`, `row_factory = sqlite3.Row`, retur
 def main():
     conn = connect()
     try:
-        eth_count = save_eth_prices(conn, 1, fetch_prices("ethereum"))
+        eth_count = save_prices(conn, 1, fetch_prices("ethereum"))
         print(f"ETH: wrote {eth_count} rows")
-        btc_count = save_eth_prices(conn, 2, fetch_prices("bitcoin"))
+        btc_count = save_prices(conn, 2, fetch_prices("bitcoin"))
         print(f"BTC: wrote {btc_count} rows")
     finally:
         conn.close()
@@ -107,5 +107,6 @@ What that means: CoinGecko returned ~30 daily points per coin; each loop wrote/u
 
 - [x] `asset_id` in INSERT documented
 - [x] BTC `main` verified by run output
-- [ ] Optional rename `save_prices` when user does it
+- [x] Rename `save_prices` (user confirmed 2026-10-11)
+- [ ] User commits rename + docs
 

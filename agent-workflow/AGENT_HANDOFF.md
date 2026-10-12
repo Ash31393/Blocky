@@ -51,7 +51,7 @@ Evidence-based only:
 | ETH fetch/save | **Verified earlier** | user paste: `ETH: wrote 31 rows` |
 | `asset_id` parameter used in INSERT | **Implemented** (line 55 = `asset_id`) | user edit + file read 2026-10-07 |
 | BTC fetch in `main` | **Verified** | user output 2026-10-08: `ETH: wrote 31 rows` / `BTC: wrote 31 rows` |
-| Function rename `save_prices` | **Not done** (optional cleanup) | still named `save_eth_prices` |
+| Function rename `save_prices` | **Done** (working tree; user confirmed run) | `def` + both `main` calls |
 | Toy ledger on this branch | **Absent** | lives on `origin/feature/toy-ledger` / open PR #6 |
 | Docs compact commit | **Committed** | `70feb78` |
 | New 3-file workflow install | **Present in working tree** | `AGENT_INSTRUCTIONS` / `HANDOFF` / `WALKTHROUGH` |
@@ -71,9 +71,8 @@ Done and verified:
 
 Still open (optional / next):
 
-1. Optional rename `save_eth_prices` → `save_prices` (body already generic).
-2. Commit ETL + workflow docs on `feature/etl-btc`, then PR → `dev` when user wants.
-3. Later: merge toy-ledger PR #6; Tableau for BTC; release `dev` → `main`.
+1. Commit rename + doc touch-ups; push; PR `feature/etl-btc` → `dev`.
+2. Later: merge toy-ledger PR #6; Tableau for BTC; release `dev` → `main`.
 
 ## Important decisions
 
@@ -100,22 +99,19 @@ Still open (optional / next):
 
 ## Exact next step
 
-**Optional cleanup:** rename `save_eth_prices` → `save_prices` in the `def` line and both call sites in `main` (same body). Or skip and **commit** the BTC ETL + agent-workflow docs now.
-
-Suggested commit when ready (you run it):
+Rename applied and confirmed by user. Commit it (and the handoff/walkthrough touch-ups):
 
 ```powershell
 git status
-git add data/etl/fetch_prices.py data/etl/init_schema.py agent-workflow/ oldInstructions/agent-workflow-archive/
-git commit -m "feat(etl): fetch and upsert BTC alongside ETH; compact agent-workflow"
+git add data/etl/fetch_prices.py agent-workflow/AGENT_HANDOFF.md agent-workflow/CODE_WALKTHROUGH.md
+git commit -m "refactor(etl): rename save_eth_prices to save_prices"
 git push
 ```
 
-Adjust `git add` after you inspect `git status` — include only what belongs in this checkpoint.
+After that: open/update PR `feature/etl-btc` → `dev` when you want (`gh pr create` or GitHub UI).
 
 ### Latest learning checkpoint
 
-- Date: 2026-10-08.
-- Verified: `.\.venv\Scripts\python.exe data\etl\fetch_prices.py` → `ETH: wrote 31 rows` and `BTC: wrote 31 rows`.
-- Concepts: parameter vs literal; try/finally scope; multi-asset `(slug, asset_id)` pairing.
-- Next: optional rename, then commit/push/PR when you want.
+- Date: 2026-10-11.
+- Verified: rename `save_prices`; user said run worked.
+- Next: commit + push rename; then PR to `dev`.
