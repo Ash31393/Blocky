@@ -42,7 +42,9 @@ ORDER BY p.price_date;
 
 SEED_SQL = """
 INSERT OR IGNORE INTO assets (id, symbol, name, coingecko_id)
-VALUES (1, 'ETH', 'Ethereum', 'ethereum');
+VALUES
+  (1, 'ETH', 'Ethereum', 'ethereum'),
+  (2, 'BTC', 'Bitcoin', 'bitcoin');
 """
 
 

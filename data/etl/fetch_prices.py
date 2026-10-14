@@ -8,14 +8,15 @@ from pathlib import Path
 DB_PATH = (
     Path(__file__).resolve().parents[2] / "data" / "sqlite" / "blocky_analytics.db"
 )
-API_URL = (
-    "https://api.coingecko.com/api/v3/coins/ethereum/market_chart"
+API_TEMPLATE = (
+    "https://api.coingecko.com/api/v3/coins/{coingecko_id}/market_chart"
     "?vs_currency=usd&days=30&interval=daily"
 )
 
 
-def fetch_prices():
-    with urllib.request.urlopen(API_URL) as response:
+def fetch_prices(coingecko_id):
+    url = API_TEMPLATE.format(coingecko_id=coingecko_id)
+    with urllib.request.urlopen(url) as response:
         data = json.loads(response.read())
         return data
 
@@ -27,7 +28,7 @@ def connect():
     return conn
 
 
-def save_eth_prices(conn, payload):
+def save_prices(conn, asset_id, payload):
     prices = payload["prices"]
     volumes = {ms: v for ms, v in payload.get("total_volumes", [])}
     market_caps = {ms: m for ms, m in payload.get("market_caps", [])}
@@ -51,7 +52,7 @@ def save_eth_prices(conn, payload):
               fetched_at = excluded.fetched_at
             """,
             (
-                1,
+                asset_id,
                 price_date,
                 close_usd,
                 volumes.get(ms),
@@ -68,9 +69,10 @@ def save_eth_prices(conn, payload):
 def main():
     conn = connect()
     try:
-        payload = fetch_prices()
-        count = save_eth_prices(conn, payload)
-        print(f"ETH: wrote {count} rows")
+        eth_count = save_prices(conn, 1, fetch_prices("ethereum"))
+        print(f"ETH: wrote {eth_count} rows")
+        btc_count = save_prices(conn, 2, fetch_prices("bitcoin"))
+        print(f"BTC: wrote {btc_count} rows")
     finally:
         conn.close()
 
