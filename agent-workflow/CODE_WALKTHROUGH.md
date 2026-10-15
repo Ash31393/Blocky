@@ -1,112 +1,60 @@
 # Code Walkthrough — Blocky
 
-Companion to `AGENT_HANDOFF.md` / `AGENT_INSTRUCTIONS.md`.  
-Agent maintains this file. Label proposed vs applied. Record verification only from evidence.
-
-Status: 2026-10-11 — ETH + BTC verified; rename to `save_prices` applied (user confirmed run). Commit of rename pending.
+Companion to `AGENT_HANDOFF.md`.  
+Status: 2026-10-14 — Lab 01 SQL scripts created; teaching starts at fundamentals Exercise 1.
 
 ## Coverage index
 
-| File | Snapshot | Coverage | Status |
-| --- | --- | --- | --- |
-| `data/etl/init_schema.py` | Working tree 2026-10-07 | Seed `SEED_SQL` (ETH+BTC) | Applied in file; earlier user run listed both assets |
-| `data/etl/fetch_prices.py` | Working tree 2026-10-08 | Full file; `main` ETH+BTC | Verified by user run |
-| `labs/toy-ledger/ledger.py` | Other branch / PR #6 | Not on `feature/etl-btc` | Deferred |
+| File | Coverage | Status |
+| --- | --- | --- |
+| `data/etl/fetch_prices.py` | Prior milestone (ETH+BTC `save_prices`) | Merged via PR #7 |
+| `data/etl/init_schema.py` | Seed ETH+BTC; schema + view | Merged / local repair verified |
+| `labs/sql/README.md` | Lab orientation + DBeaver setup | Created |
+| `labs/sql/01_fundamentals.sql` | SELECT / WHERE / ORDER BY / LIMIT | Teaching now |
+| `labs/sql/02_joins.sql` … `05_*.sql` | Joins → windows → EXPLAIN | Created; teach later |
 
-Excluded from exhaustive coverage: `uv.lock`, Tableau `.twbx`, gitignored `.db`, archived docs under `oldInstructions/`.
-
-## Feature and runtime overview
+## Data model (why the SQL labs look this way)
 
 ```text
-CoinGecko HTTP (slug)
-    → JSON { prices, total_volumes, market_caps }
-    → save_*(conn, asset_id, payload)
-    → SQLite price_daily (upsert on asset_id + price_date)
+assets (id PK, symbol, name, coingecko_id)
+    ↑
+    │ asset_id  (many prices per asset)
+price_daily (asset_id + price_date PK, close_usd, …)
+
+v_price_trends = price_daily INNER JOIN assets
 ```
 
-`assets` rows (id 1 ETH / id 2 BTC) come from `init_schema.py`. Fetch script must pass matching `(slug, asset_id)` pairs.
+- **Dimension** `assets`: one row per coin.
+- **Fact** `price_daily`: one row per coin per day.
+- **View** `v_price_trends`: chart-ready labels (what Tableau often consumes).
 
-## File: `data/etl/init_schema.py`
+## Lab SQL teaching notes
 
-**Role:** create tables/view and seed asset rows.
+### `SELECT * FROM assets`
 
-Applied seed:
+- `SELECT` lists result columns; `*` means every column.
+- `FROM assets` names the table.
+- Result should be two rows after BTC seed repair: ETH id 1, BTC id 2.
 
-```python
-SEED_SQL = """
-INSERT OR IGNORE INTO assets (id, symbol, name, coingecko_id)
-VALUES
-  (1, 'ETH', 'Ethereum', 'ethereum'),
-  (2, 'BTC', 'Bitcoin', 'bitcoin');
-"""
-```
+### `WHERE` / `ORDER BY` / `LIMIT`
 
-- `INSERT OR IGNORE` — skip if primary key / unique already present.
-- `coingecko_id` — API slug string, not a Python name.
-- Common mistake: fetching `bitcoin` but writing `asset_id=1` (prices land on ETH).
+- `WHERE` filters **rows** before you see them.
+- `ORDER BY price_date DESC` puts newest first (ISO dates sort as text).
+- `LIMIT 5` returns only five rows — sampling, not a permanent table change.
 
-## File: `data/etl/fetch_prices.py`
+### Joins (preview for script 02)
 
-### Imports and paths
+- `price_daily.asset_id` matches `assets.id`.
+- `INNER JOIN` drops orphans; that is why missing BTC in `assets` hid BTC from the view earlier.
 
-| Lines | Idea |
-| --- | --- |
-| `json`, `sqlite3`, `urllib.request` | Parse API, talk to SQLite, HTTP without third-party deps |
-| `Path(__file__).resolve().parents[2] / "data" / "sqlite" / ...` | Repo-relative DB path (works across machines) |
-| `API_TEMPLATE` with `{coingecko_id}` | Filled by `.format` in `fetch_prices` |
+### Performance script 05
 
-### `fetch_prices(coingecko_id)`
-
-Builds URL → `urlopen` → `json.loads` → returns dict. Parameter is the CoinGecko slug (`"ethereum"`, `"bitcoin"`).
-
-### `connect()`
-
-Ensures parent dir exists, `sqlite3.connect`, `row_factory = sqlite3.Row`, returns connection.
-
-### `save_prices(conn, asset_id, payload)` (renamed from `save_eth_prices`)
-
-| Piece | Meaning |
-| --- | --- |
-| `asset_id` | Integer FK → `assets.id`; must be used in the INSERT tuple |
-| `payload["prices"]` | List of `[ms, usd]` |
-| volume/mcap dicts | Keyed by same millisecond for `.get(ms)` |
-| `ms / 1000` → `%Y-%m-%d` | CoinGecko ms timestamp → UTC date string |
-| `INSERT ... ON CONFLICT(asset_id, price_date) DO UPDATE` | Upsert; re-runs refresh values |
-| Line 55 `asset_id` | **Applied** — first bound `?` is the caller’s id |
-| return `rows_written` | Loop count (points visited), not “new PK rows only” |
-
-**Design note:** Rename is naming cleanup only — same parameters and SQL. Old name would imply ETH-only while BTC already uses it.
-
-### `main()` — applied (run pending)
-
-```python
-def main():
-    conn = connect()
-    try:
-        eth_count = save_prices(conn, 1, fetch_prices("ethereum"))
-        print(f"ETH: wrote {eth_count} rows")
-        btc_count = save_prices(conn, 2, fetch_prices("bitcoin"))
-        print(f"BTC: wrote {btc_count} rows")
-    finally:
-        conn.close()
-```
-
-- Both calls sit inside `try` so `finally` closes `conn` even if the second request fails.
-- Id `2` matches BTC seed in `init_schema.py`.
-- Lesson learned: code after `conn.close()` / outside `main` cannot use that connection.
-
-### Verification
-
-| Check | Result |
-| --- | --- |
-| `.\.venv\Scripts\python.exe data\etl\fetch_prices.py` | 2026-10-08 user: `ETH: wrote 31 rows` / `BTC: wrote 31 rows` |
-
-What that means: CoinGecko returned ~30 daily points per coin; each loop wrote/upserted a `price_daily` row for asset 1 then asset 2. Count is points visited, not “brand-new dates only.”
+- `EXPLAIN QUERY PLAN` is safe on the live DB.
+- `CREATE INDEX` only on `ATTACH`ed scratch DB `data/sqlite/_lab01_perf_scratch.db`.
 
 ## Synchronization checklist
 
-- [x] `asset_id` in INSERT documented
-- [x] BTC `main` verified by run output
-- [x] Rename `save_prices` (user confirmed 2026-10-11)
-- [ ] User commits rename + docs
-
+- [x] Lab 01 files created on `feature/labs-sql-01`
+- [x] User verified DBeaver connection and Exercises 1–4 (`SELECT`, `WHERE`, `ORDER BY`, `LIMIT`)
+- [ ] User commits `feature/labs-sql-01` and switches to `feature/web3-solidity-lab`
+- [ ] Begin Solidity + Testnet + Wallet walkthrough
