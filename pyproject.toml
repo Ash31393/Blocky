@@ -3,7 +3,10 @@ name = "blocky"
 version = "0.1.0"
 description = "Crypto analytics ETL and Web3 learning lab"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+    "py-solc-x>=2.0.5",
+    "web3>=8.0.0",
+]
 # ETL (data/etl) uses stdlib only: sqlite3, json, urllib, datetime.
 # Add runtime deps with: uv add <package>
 
